@@ -173,28 +173,7 @@
         </div>
     </div>
 
-    <!-- 登录/注册入口 -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3 id="authTitle">用户登录</h3>
-            <div class="form-group">
-                <label><i class="fas fa-phone"></i> 手机号</label>
-                <input type="tel" id="authPhone" class="input" placeholder="请输入手机号" maxlength="11">
-                <span class="error-msg" id="phoneError"></span>
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-lock"></i> 验证码</label>
-                <div class="input-group">
-                    <input type="text" id="authCode" class="input" placeholder="请输入验证码" maxlength="6">
-                    <button id="sendCodeBtn" class="btn btn-secondary">发送验证码</button>
-                </div>
-                <span class="error-msg" id="codeError"></span>
-            </div>
-            <button id="authSubmitBtn" class="btn btn-primary">登录</button>
-            <p class="auth-switch">还没有账号？<a href="#" id="switchToRegister">立即注册</a></p>
-        </div>
-    </div>
+    <!-- 登录/注册入口已移除 -->
 
     <!-- 顶部导航 -->
     <header class="header" role="banner">
@@ -202,7 +181,6 @@
             <h1 class="logo"><i class="fas fa-heart" aria-hidden="true"></i> 婚育服务平台</h1>
             <div class="header-right">
                 <button id="searchBtn" class="icon-btn" title="搜索" aria-label="打开搜索"><i class="fas fa-search" aria-hidden="true"></i></button>
-                <button id="userBtn" class="user-btn" aria-label="用户登录"><i class="fas fa-user" aria-hidden="true"></i> 登录</button>
             </div>
             <nav class="nav" role="navigation" aria-label="主导航">
                 <button class="nav-btn active" data-section="married"><i class="fas fa-baby"></i> 已婚人群专区</button>
@@ -251,16 +229,7 @@
             </div>
         </section>
 
-        <!-- 右侧悬浮广告 -->
-        <div class="ad-sidebar ad-container" id="sidebarAd">
-            <span class="ad-label">广告</span>
-            <button class="ad-close-btn" onclick="closeSidebarAd()" aria-label="关闭广告"><i class="fas fa-times" aria-hidden="true"></i></button>
-            <a href="ads/maternity-center.html" class="ad-mock" target="_blank">
-                <div class="ad-mock-icon">💝</div>
-                <div class="ad-mock-title">高端月子中心</div>
-                <div class="ad-mock-desc">专业护理 · 营养膳食</div>
-            </a>
-        </div>
+        <!-- 右侧悬浮广告已移除，减少干扰 -->
 
         <!-- 已婚人群专区 -->
         <section id="married" class="section active">
@@ -436,8 +405,8 @@
                     </div>
                     <div class="platform-feature">
                         <div class="platform-feature-icon"><i class="fas fa-headset"></i></div>
-                        <h5>专业客服</h5>
-                        <p>一对一解答您的婚育政策疑问</p>
+                        <h5>意见反馈</h5>
+                        <p>欢迎通过微信或邮箱提出建议</p>
                     </div>
                 </div>
 
@@ -445,6 +414,14 @@
                 <div id="savedPolicies" class="saved-section" style="display: none;">
                     <h3><i class="fas fa-star"></i> 我收藏的政策</h3>
                     <div id="savedPoliciesList"></div>
+                </div>
+
+                <!-- 数据来源与免责声明 -->
+                <div class="data-disclaimer" style="margin-top: 2rem; padding: 1.2rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #F5A623; font-size: 0.85rem; color: #666;">
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #333;"><i class="fas fa-info-circle" style="color: #F5A623;"></i> 数据来源与免责声明</h4>
+                    <p style="margin: 0 0 0.4rem 0;">📌 本平台政策数据整理自各省市人民政府官网、人力资源和社会保障局、卫生健康委员会等公开渠道，仅供参考。</p>
+                    <p style="margin: 0 0 0.4rem 0;">📌 政策内容可能因地方调整而变化，请以当地最新官方文件为准。</p>
+                    <p style="margin: 0;">📌 本平台不提供任何形式的法律、医疗或财务建议。如需专业帮助，请咨询相关部门或专业人士。</p>
                 </div>
             </div>
         </section>
@@ -1081,9 +1058,9 @@
             <i class="fas fa-question-circle" aria-hidden="true"></i>
             <span>常见问题</span>
         </button>
-        <button id="csBtn" class="tool-btn" title="客服" aria-label="打开客服">
-            <i class="fas fa-comments" aria-hidden="true"></i>
-            <span>客服</span>
+        <button id="csBtn" class="tool-btn" title="意见反馈" aria-label="打开意见反馈">
+            <i class="fas fa-comment-alt" aria-hidden="true"></i>
+            <span>反馈</span>
         </button>
         <button id="backToTop" class="tool-btn" title="返回顶部" aria-label="返回顶部" style="display:none;">
             <i class="fas fa-arrow-up" aria-hidden="true"></i>
@@ -1115,15 +1092,15 @@
         </button>
     </nav>
 
-    <!-- 客服菜单 -->
+    <!-- 意见反馈菜单 -->
     <div id="csMenu" class="cs-menu-popup">
         <div class="cs-menu-header">
-            <h4><i class="fas fa-headset"></i> 客服中心</h4>
+            <h4><i class="fas fa-comment-alt"></i> 意见反馈</h4>
             <button class="close-cs"><i class="fas fa-times"></i></button>
         </div>
         <div class="cs-menu-body">
-            <a href="#" class="cs-item" onclick="showToast('微信客服：hunyutong2025', 'info'); return false;"><i class="fab fa-weixin"></i> 微信客服<span>hunyutong2025</span></a>
-            <a href="#" class="cs-item"><i class="fas fa-comment-dots"></i> 在线留言<span>24小时内回复</span></a>
+            <a href="#" class="cs-item" onclick="showToast('微信：hunyutong2025', 'info'); return false;"><i class="fab fa-weixin"></i> 微信反馈<span>hunyutong2025</span></a>
+            <a href="mailto:hunyutong@163.com" class="cs-item"><i class="fas fa-envelope"></i> 邮件反馈<span>hunyutong@163.com</span></a>
         </div>
     </div>
 
@@ -1192,8 +1169,8 @@
     <!-- 无障碍和用户体验增强 -->
     <script src="js/accessibility.js"></script>
     
-    <!-- 用户系统 -->
-    <script src="js/user-system.js"></script>
+    <!-- 用户系统已移除 -->
+    <!-- <script src="js/user-system.js"></script> -->
     
     <!-- 数据统计分析 -->
     <script src="js/analytics.js"></script>
@@ -1201,8 +1178,8 @@
     <!-- 主脚本 -->
     <script src="js/script.js"></script>
     
-    <!-- PWA安装功能 - 婚育服务通APP版 -->
-    <script src="js/pwa-install.js"></script>
+    <!-- PWA安装提示已移除 -->
+    <!-- <script src="js/pwa-install.js"></script> -->
     
     <!-- 备婚攻略站 -->
     <script src="js/wedding-prep.js"></script>

@@ -637,15 +637,8 @@ const mockData = {
         };
     })(),
 
-    // 匹配用户数据
-    users: [
-        { id: 1, name: '张三', age: 28, education: '本科', location: '北京朝阳', workplace: '互联网公司', personality: '开朗活泼', economic: 'high', preference: '喜欢运动', contact: 'wechat_zhangsan', avatar: '👨' },
-        { id: 2, name: '李四', age: 30, education: '硕士', location: '上海浦东', workplace: '金融机构', personality: '稳重成熟', economic: 'veryHigh', preference: '喜欢阅读', contact: 'wechat_lisi', avatar: '👨' },
-        { id: 3, name: '王五', age: 26, education: '本科', location: '广州天河', workplace: '教育行业', personality: '温柔体贴', economic: 'medium', preference: '喜欢旅游', contact: 'wechat_wangwu', avatar: '👩' },
-        { id: 4, name: '赵六', age: 29, education: '硕士', location: '深圳南山', workplace: '科技公司', personality: '幽默风趣', economic: 'high', preference: '喜欢美食', contact: 'wechat_zhaoliu', avatar: '👨' },
-        { id: 5, name: '孙七', age: 27, education: '本科', location: '杭州西湖', workplace: '电商公司', personality: '细心体贴', economic: 'medium', preference: '喜欢音乐', contact: 'wechat_sunqi', avatar: '👩' },
-        { id: 6, name: '周八', age: 31, education: '博士', location: '南京鼓楼', workplace: '高校教师', personality: '知性优雅', economic: 'high', preference: '喜欢艺术', contact: 'wechat_zhouba', avatar: '👩' }
-    ],
+    // 用户数据已移除（原相亲匹配功能已下线）
+    users: [],
 
     // 婚姻登记处数据
     registries: [
@@ -831,13 +824,8 @@ const mockData = {
 };
 
 // 全局变量
-let currentUser = null;
-let selectedMatchUser = null;
 let amapInstance = null;
-let favoriteUsers = new Set();
-let blockedUsers = new Set();
 let savedPolicies = [];
-let faceVerified = false;
 
 // 数据持久化管理
 const StorageManager = {
@@ -1065,40 +1053,23 @@ function initMobileBottomNav() {
 
 // 广告位管理
 function initAds() {
-    // 检查是否已关闭侧边广告
-    const sidebarAdClosed = StorageManager.load('sidebarAdClosed', false);
-    if (sidebarAdClosed) {
-        document.getElementById('sidebarAd').style.display = 'none';
-    }
-    
     // 为所有广告添加点击统计
     document.querySelectorAll('.ad-mock').forEach(ad => {
         ad.addEventListener('click', function(e) {
-            // 这里可以添加广告点击统计
-            console.log('广告被点准', this.querySelector('.ad-mock-title').textContent);
+            console.log('广告被点击', this.querySelector('.ad-mock-title')?.textContent);
         });
     });
 }
 
-// 关闭侧边广告
-function closeSidebarAd() {
-    document.getElementById('sidebarAd').style.display = 'none';
-    StorageManager.save('sidebarAdClosed', true);
-    showToast('广告已关门', 'success');
-}
+// 关闭侧边广告（已移除侧边广告，保留函数避免报错）
+function closeSidebarAd() {}
 
 // 申领进度查询
 function queryProgress() {
     const queryId = document.getElementById('progressQueryId').value;
     
     if (!queryId) {
-        showToast('请输入申请编受', 'error');
-        return;
-    }
-    
-    if (!currentUser) {
-        showToast('请先登录', 'error');
-        document.getElementById('userBtn').click();
+        showToast('请输入申请编号', 'error');
         return;
     }
     
@@ -2320,24 +2291,14 @@ function downloadMaterials(type, regionName = '') {
 
 // 在线申请
 function applyOnline(type, regionName = '') {
-    if (!currentUser) {
-        showToast('请先登录', 'error');
-        document.getElementById('userBtn').click();
-        return;
-    }
     showToast(`正在跳转到${regionName ? regionName + ' ' : ''}${type}补贴在线申请页面...`, 'info');
     setTimeout(() => {
         showToast('在线申请功能开发中，请前往当地政务服务网办理', 'info');
     }, 1500);
 }
 
-// 收藏政策
+// 收藏政策（无需登录，直接保存到本地）
 function savePolicy(index, regionName = '') {
-    if (!currentUser) {
-        showToast('请先登录', 'error');
-        return;
-    }
-    
     const policyKey = `${regionName}_${index}`;
     if (savedPolicies.includes(policyKey)) {
         showToast('已经收藏过该政策', 'info');
