@@ -2146,14 +2146,20 @@ function displayPolicyCards(policy, regionName = '') {
     const container = document.getElementById('policyCards');
     container.innerHTML = '';
 
+    // 获取当前日期作为政策更新时间
+    const updateDate = new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+
     // 国家级政策提示
     const nationalPolicy = mockData.policies['national'];
     if (nationalPolicy) {
         const nationalTip = `
             <div class="policy-card policy-card--national">
-                <h3><i class="fas fa-flag"></i> 国家统一政策（025年月日起：</h3>
+                <h3><i class="fas fa-flag"></i> 国家统一政策（2025年1月1日起）</h3>
                 <div class="info-item"><strong>国家补贴：</strong>每孩每年3600元（0-3岁），一孩、二孩、三孩均可享受</div>
                 <div class="info-item" style="font-size: 0.9rem; margin-top: 1rem;"><i class="fas fa-info-circle"></i> 这是2025年1月1日起实施的国家级育儿补贴政策，由中央政府直接发放，地方政府可额外补充</div>
+                <div class="policy-update-time" style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; color: rgba(255,255,255,0.7);">
+                    <i class="fas fa-sync-alt"></i> 最后更新：${updateDate}
+                </div>
             </div>
         `;
         container.innerHTML += nationalTip;
