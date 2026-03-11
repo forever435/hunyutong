@@ -980,6 +980,67 @@
                     </div>
                 </div>
                 
+                <!-- 生育津贴计算器 -->
+                <div class="maternity-allowance-calc" style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%); border-radius: 12px; border: 2px solid #E8636F;">
+                    <h3 class="subsection-title" style="color: #E8636F;"><i class="fas fa-coins"></i> 生育津贴计算器</h3>
+                    <p class="module-desc">根据您的工资基数和产假天数，快速估算生育津贴金额</p>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> 参保地区</label>
+                        <select id="allowanceProvince" class="select-input" onchange="updateAllowanceDays()">
+                            <option value="">请选择省份</option>
+                            <option value="beijing">北京</option>
+                            <option value="shanghai">上海</option>
+                            <option value="guangdong">广东</option>
+                            <option value="zhejiang">浙江</option>
+                            <option value="jiangsu">江苏</option>
+                            <option value="sichuan">四川</option>
+                            <option value="other">其他省份</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> 产假天数</label>
+                        <select id="maternityDays" class="select-input">
+                            <option value="128">128天（基础产假）</option>
+                            <option value="158" selected>158天（标准产假）</option>
+                            <option value="178">178天（广东等延长产假）</option>
+                            <option value="188">188天（难产/剖腹产）</option>
+                            <option value="218">218天（难产+延长）</option>
+                        </select>
+                        <span class="cost-hint">难产、多胞胎等情况可增加15-30天</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-money-bill-wave"></i> 月平均工资（元）</label>
+                        <input type="number" id="monthlySalary" class="input" placeholder="请输入您上年度月平均工资" value="8000">
+                        <span class="cost-hint">生育津贴按单位上年度职工月平均工资计算</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-building"></i> 单位缴费基数（元）</label>
+                        <input type="number" id="companyBase" class="input" placeholder="可选：输入单位缴费基数" value="">
+                        <span class="cost-hint">如单位缴费基数与个人工资不同，请填写此项</span>
+                    </div>
+                    
+                    <button id="calculateAllowance" class="btn btn-primary" style="background: linear-gradient(135deg, #E8636F, #C94D58);"><i class="fas fa-calculator"></i> 计算生育津贴</button>
+                    
+                    <div id="allowanceResult" class="allowance-result" style="display:none; margin-top: 1.5rem; padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <div style="text-align: center; margin-bottom: 1rem;">
+                            <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">预估生育津贴</div>
+                            <div id="allowanceTotal" style="font-size: 2.5rem; font-weight: bold; color: #E8636F;">¥0</div>
+                        </div>
+                        <div id="allowanceBreakdown" style="border-top: 1px solid #eee; padding-top: 1rem; margin-top: 1rem;">
+                            <!-- 计算明细 -->
+                        </div>
+                        <div style="margin-top: 1rem; padding: 0.8rem; background: #f8f9fa; border-radius: 6px; font-size: 0.85rem; color: #666;">
+                            <i class="fas fa-info-circle" style="color: #E8636F;"></i> 
+                            <strong>计算公式：</strong>生育津贴 = 月平均工资 ÷ 30 × 产假天数<br>
+                            <span style="margin-left: 1.2rem;">实际金额以当地社保局核算为准</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="insurance-form">
                     <!-- 费用参考值 -->
                     <div class="cost-reference">

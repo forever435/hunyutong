@@ -3280,6 +3280,146 @@ function showLeaveDetails(leaveType, regionName) {
     });
 }
 
+// ==================== 生育津贴计算器功能 ====================
+
+// 各地区产假天数配置
+const maternityDaysConfig = {
+    'beijing': { name: '北京', days: 158, note: '基础产假98天+延长60天' },
+    'shanghai': { name: '上海', days: 158, note: '基础产假98天+延长60天' },
+    'guangdong': { name: '广东', days: 178, note: '基础产假98天+延长80天' },
+    'zhejiang': { name: '浙江', days: 158, note: '基础产假98天+延长60天' },
+    'jiangsu': { name: '江苏', days: 158, note: '基础产假98天+延长60天' },
+    'sichuan': { name: '四川', days: 158, note: '基础产假98天+延长60天' },
+    'other': { name: '其他省份', days: 158, note: '基础产假98天+延长60天（参考值）' }
+};
+
+// 更新产假天数选项
+function updateAllowanceDays() {
+    const province = document.getElementById('allowanceProvince').value;
+    const daysSelect = document.getElementById('maternityDays');
+    
+    if (!province) return;
+    
+    const config = maternityDaysConfig[province];
+    if (!config) return;
+    
+    // 清空现有选项
+    daysSelect.innerHTML = '';
+    
+    // 添加选项
+    const options = [
+        { value: 128, text: '128天（基础产假）' },
+        { value: 158, text: `158天（标准产假）`, selected: config.days === 158 },
+        { value: 178, text: `178天（延长产假）`, selected: config.days === 178 },
+        { value: 188, text: '188天（难产/剖腹产）' },
+        { value: 218, text: '218天（难产+延长）' }
+    ];
+    
+    options.forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt.value;
+        option.textContent = opt.text;
+        if (opt.selected) option.selected = true;
+        daysSelect.appendChild(option);
+    });
+}
+
+// 计算生育津贴
+function calculateMaternityAllowance() {
+    const province = document.getElementById('allowanceProvince').value;
+    const days = parseInt(document.getElementById('maternityDays').value);
+    const salary = parseFloat(document.getElementById('monthlySalary').value) || 0;
+    const companyBase = parseFloat(document.getElementById('companyBase').value) || 0;
+    
+    // 验证输入
+    if (!province) {
+        showToast('请选择参保地区', 'error');
+        return;
+    }
+    
+    if (salary <= 0) {
+        showToast('请输入有效的月平均工资', 'error');
+        return;
+    }
+    
+    // 使用单位缴费基数或个人工资，取较高者
+    const baseAmount = companyBase > 0 ? Math.max(salary, companyBase) : salary;
+    
+    // 计算生育津贴：月平均工资 ÷ 30 × 产假天数
+    const dailyAmount = baseAmount / 30;
+    const totalAllowance = dailyAmount * days;
+    
+    // 显示结果
+    displayAllowanceResult(baseAmount, days, dailyAmount, totalAllowance, province);
+}
+
+// 显示生育津贴计算结果
+function displayAllowanceResult(baseAmount, days, dailyAmount, totalAllowance, province) {
+    const resultDiv = document.getElementById('allowanceResult');
+    const totalDiv = document.getElementById('allowanceTotal');
+    const breakdownDiv = document.getElementById('allowanceBreakdown');
+    
+    // 格式化金额
+    const formatMoney = (amount) => {
+        return '¥' + amount.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+    
+    // 更新总金额
+    totalDiv.textContent = formatMoney(totalAllowance);
+    
+    // 获取地区名称
+    const provinceName = maternityDaysConfig[province]?.name || '所选地区';
+    
+    // 计算明细
+    breakdownDiv.innerHTML = `
+        <div style="display: grid; gap: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #eee;">
+                <span><i class="fas fa-map-marker-alt" style="color: #E8636F;"></i> 参保地区</span>
+                <span style="font-weight: 500;">${provinceName}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #eee;">
+                <span><i class="fas fa-calendar-alt" style="color: #E8636F;"></i> 产假天数</span>
+                <span style="font-weight: 500;">${days} 天</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #eee;">
+                <span><i class="fas fa-money-bill-wave" style="color: #E8636F;"></i> 计算基数</span>
+                <span style="font-weight: 500;">${formatMoney(baseAmount)}/月</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #eee;">
+                <span><i class="fas fa-calculator" style="color: #E8636F;"></i> 日津贴标准</span>
+                <span style="font-weight: 500;">${formatMoney(dailyAmount)}/天</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; margin-top: 0.5rem; background: #fff5f5; border-radius: 6px; padding: 0.75rem;">
+                <span style="font-weight: 600; color: #E8636F;"><i class="fas fa-coins"></i> 预估生育津贴</span>
+                <span style="font-weight: 600; color: #E8636F; font-size: 1.1rem;">${formatMoney(totalAllowance)}</span>
+            </div>
+        </div>
+    `;
+    
+    // 显示结果区域
+    resultDiv.style.display = 'block';
+    
+    // 滚动到结果区域
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    showToast('生育津贴计算完成', 'success');
+}
+
+// 初始化生育津贴计算器
+document.addEventListener('DOMContentLoaded', function() {
+    // 绑定计算按钮事件
+    const calculateBtn = document.getElementById('calculateAllowance');
+    if (calculateBtn) {
+        calculateBtn.addEventListener('click', calculateMaternityAllowance);
+    }
+    
+    // 绑定地区选择变化事件
+    const provinceSelect = document.getElementById('allowanceProvince');
+    if (provinceSelect) {
+        provinceSelect.addEventListener('change', updateAllowanceDays);
+    }
+});
+
 // 显示补贴详细要求
 function showSubsidyDetails(subsidyType, regionName, index) {
     // 提取孩次（一孩、二孩、三孩）
