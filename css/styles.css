@@ -2460,3 +2460,265 @@ img { max-width: 100%; height: auto; display: block; }
     .social-links { justify-content: center; }
     .ad-cooperation-contacts { flex-direction: column; align-items: center; gap: var(--space-3); }
 }
+
+/* ============================================
+   首屏Hero欢迎区域
+   ============================================ */
+.hero-landing {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%);
+}
+
+.hero-landing-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(ellipse at 20% 50%, rgba(232, 99, 111, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(59, 89, 152, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(245, 166, 35, 0.1) 0%, transparent 50%);
+    animation: heroBgPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroBgPulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+.hero-landing-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+}
+
+.hero-landing-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    letter-spacing: -1px;
+}
+
+.hero-landing-desc {
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+}
+
+.hero-quick-search {
+    max-width: 400px;
+    margin: 0 auto 3rem;
+}
+
+.hero-select {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-full);
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--duration) var(--ease);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.25rem center;
+}
+
+.hero-select:hover,
+.hero-select:focus {
+    border-color: var(--primary);
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 0 0 4px rgba(232, 99, 111, 0.2);
+    outline: none;
+}
+
+.hero-select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-stat-num {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.hero-stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.25rem;
+}
+
+.hero-stat-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255,255,255,0.15);
+}
+
+.hero-scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.8rem;
+}
+
+.hero-scroll-icon {
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+}
+
+/* ============================================
+   移动端底部导航栏
+   ============================================ */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    padding: 0.25rem 0;
+    padding-bottom: env(safe-area-inset-bottom, 0.25rem);
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+}
+
+.mobile-bottom-nav .mobile-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 0.4rem 0;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    cursor: pointer;
+    transition: color var(--duration) var(--ease);
+    position: relative;
+}
+
+.mobile-bottom-nav .mobile-nav-item i {
+    font-size: 1.15rem;
+    transition: transform var(--duration) var(--ease);
+}
+
+.mobile-bottom-nav .mobile-nav-item.active {
+    color: var(--primary);
+}
+
+.mobile-bottom-nav .mobile-nav-item.active i {
+    transform: scale(1.1);
+}
+
+.mobile-bottom-nav .mobile-nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 0 0 2px 2px;
+}
+
+@media (max-width: 768px) {
+    .mobile-bottom-nav {
+        display: flex;
+    }
+
+    /* 隐藏顶部导航的tab按钮 */
+    .header .nav {
+        display: none;
+    }
+
+    /* 给底部导航留空间 */
+    body {
+        padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .footer {
+        margin-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* 隐藏右侧悬浮广告（移动端太占空间） */
+    .ad-sidebar {
+        display: none;
+    }
+
+    /* 快捷工具栏移到底部导航上方 */
+    .quick-tools {
+        bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* hero区域移动端适配 */
+    .hero-landing {
+        min-height: 100svh;
+    }
+
+    .hero-stats {
+        gap: 1.25rem;
+    }
+
+    .hero-stat-num {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-landing-content {
+        padding: 1.5rem 0.75rem;
+    }
+
+    .hero-stats {
+        gap: 1rem;
+    }
+}

@@ -1,13 +1,7 @@
 User-agent: *
 Allow: /
 
-# 禁止爬取的目录
-Disallow: /js/
-Disallow: /css/
 Disallow: /.vscode/
+Disallow: /.git/
 
-# Sitemap位置
-Sitemap: https://yourdomain.com/sitemap.xml
-
-# 爬取延迟（毫秒）
-Crawl-delay: 1
+Sitemap: https://forever435.github.io/hunyutong/sitemap.xml

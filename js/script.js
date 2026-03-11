@@ -971,6 +971,8 @@ const faqData = [
 document.addEventListener('DOMContentLoaded', function() {
     loadUserData();
     initNavigation();
+    initHeroLanding();
+    initMobileBottomNav();
     // initAuth(); // 已移至user-system.js
     initMarriedSection();
     initSingleSection();
@@ -986,6 +988,80 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('✅主脚本初始化完成');
 });
+
+// 首屏Hero区域初始化
+function initHeroLanding() {
+    const heroSelect = document.getElementById('heroProvince');
+    if (!heroSelect) return;
+    
+    // 填充省份选项
+    const provinces = Object.keys(mockData.regions);
+    provinces.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = p;
+        heroSelect.appendChild(opt);
+    });
+    
+    // 选择省份后跳转到已婚专区并自动选中
+    heroSelect.addEventListener('change', function() {
+        if (!this.value) return;
+        const provinceSelect = document.getElementById('province');
+        if (provinceSelect) {
+            provinceSelect.value = this.value;
+            provinceSelect.dispatchEvent(new Event('change'));
+        }
+        // 切换到已婚专区
+        document.querySelector('[data-section="married"]').click();
+        // 滚动到地区选择器
+        setTimeout(() => {
+            const locSelector = document.querySelector('.location-selector');
+            if (locSelector) locSelector.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+    });
+    
+    // 点击下滑提示滚动到内容区
+    const scrollHint = document.querySelector('.hero-scroll-hint');
+    if (scrollHint) {
+        scrollHint.addEventListener('click', function() {
+            const married = document.getElementById('married');
+            if (married) married.scrollIntoView({ behavior: 'smooth' });
+        });
+        scrollHint.style.cursor = 'pointer';
+    }
+}
+
+// 移动端底部导航初始化
+function initMobileBottomNav() {
+    const mobileNav = document.querySelector('.mobile-bottom-nav');
+    if (!mobileNav) return;
+    
+    const mobileNavItems = mobileNav.querySelectorAll('.mobile-nav-item');
+    mobileNavItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const section = this.dataset.section;
+            // 更新移动端导航高亮
+            mobileNavItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            // 同步顶部导航
+            const topNavBtn = document.querySelector(`.nav-btn[data-section="${section}"]`);
+            if (topNavBtn) topNavBtn.click();
+            // 隐藏hero区域
+            const hero = document.getElementById('hero-landing');
+            if (hero) hero.style.display = 'none';
+        });
+    });
+    
+    // 同步：当顶部导航切换时，更新底部导航
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const section = this.dataset.section;
+            mobileNavItems.forEach(i => {
+                i.classList.toggle('active', i.dataset.section === section);
+            });
+        });
+    });
+}
 
 // 广告位管理
 function initAds() {
@@ -1893,6 +1969,10 @@ function initNavigation() {
         btn.addEventListener('click', function() {
             const targetSection = this.getAttribute('data-section');
             
+            // 隐藏首屏hero
+            const hero = document.getElementById('hero-landing');
+            if (hero) hero.style.display = 'none';
+            
             // 更新按钮状态
             navBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
@@ -1900,6 +1980,9 @@ function initNavigation() {
             // 更新内容区域
             sections.forEach(s => s.classList.remove('active'));
             document.getElementById(targetSection).classList.add('active');
+            
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
 }

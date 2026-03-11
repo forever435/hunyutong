@@ -7,18 +7,15 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "婚育服务平台",
-      "description": "全国婚育政策查询服务平台",
+      "description": "全国婚育政策查询服务平台，覆盖31省市区县，提供婚假产假育儿假政策、生育津贴育儿补贴查询",
+      "url": "https://forever435.github.io/hunyutong/",
       "applicationCategory": "GovernmentApplication",
       "operatingSystem": "Any",
+      "inLanguage": "zh-CN",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "CNY"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "1250"
       }
     }
     </script>
@@ -30,14 +27,20 @@
     <meta name="description" content="全国婚育服务平台 - 提供婚假、产假、育儿假、陪产假政策查询，生育津贴、育儿补贴申请指南，覆盖全国所有省市区县，一站式婚育服务解决方案">
     <meta name="keywords" content="婚假,产假,育儿假,陪产假,生育津贴,育儿补贴,婚育政策,生育政策,婚姻登记,生育保险,婚育服务">
     <meta name="author" content="婚育服务平台">
-    <link rel="canonical" href="https://yourdomain.com/">
+    <link rel="canonical" href="https://forever435.github.io/hunyutong/">
     
     <!-- Open Graph标签 - 社交媒体优化 -->
     <meta property="og:title" content="婚育服务平台 - 全国婚育政策查询">
     <meta property="og:description" content="一站式婚育政策查询平台，覆盖全国所有省市区县，提供婚假产假政策、生育津贴申请、婚姻登记指南等服务">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:url" content="https://forever435.github.io/hunyutong/">
     <meta property="og:site_name" content="婚育服务平台">
+    <meta property="og:locale" content="zh_CN">
+    
+    <!-- 微信分享优化 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="婚育服务平台 - 全国婚育政策一键查询">
+    <meta name="twitter:description" content="覆盖31省市区县，2025最新婚假产假育儿假政策、生育津贴补贴查询">
     
     <!-- 资源提示 - 性能优化 -->
     <link rel="dns-prefetch" href="https://map.qq.com">
@@ -55,15 +58,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- PWA配置 - 婚育服务通APP版 -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#E8636F">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="婚育服务通">
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
 </head>
 <body>
     <!-- 跳过导航链接 - 无障碍优化 -->
@@ -214,6 +215,41 @@
 
     <!-- 主内容区 -->
     <main class="main" id="main-content" role="main">
+        <!-- 首屏欢迎区域 -->
+        <section id="hero-landing" class="hero-landing">
+            <div class="hero-landing-bg"></div>
+            <div class="container hero-landing-content">
+                <div class="hero-badge">🏛️ 官方政策数据 · 覆盖全国31省</div>
+                <h2 class="hero-landing-title">婚育政策<br>一键查询</h2>
+                <p class="hero-landing-desc">婚假、产假、育儿假天数，生育津贴、育儿补贴金额<br>精确到区县级别，2025年最新政策实时更新</p>
+                <div class="hero-quick-search">
+                    <select id="heroProvince" class="hero-select" aria-label="快速选择省份">
+                        <option value="">选择省份，立即查询 →</option>
+                    </select>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">31</span>
+                        <span class="hero-stat-label">省级行政区</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">82+</span>
+                        <span class="hero-stat-label">城市覆盖</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">159+</span>
+                        <span class="hero-stat-label">区县数据</span>
+                    </div>
+                </div>
+                <div class="hero-scroll-hint">
+                    <span>下滑探索更多</span>
+                    <i class="fas fa-chevron-down hero-scroll-icon"></i>
+                </div>
+            </div>
+        </section>
+
         <!-- 右侧悬浮广告 -->
         <div class="ad-sidebar ad-container" id="sidebarAd">
             <span class="ad-label">广告</span>
@@ -250,15 +286,6 @@
                 </div>
 
                 <h2 class="section-title">已婚人群专区</h2>
-
-                <!-- Hero横幅 -->
-                <div class="section-hero">
-                    <div class="section-hero-text">
-                        <h2>婚育政策一键查询</h2>
-                        <p>覆盖全国所有省市区县，2025年最新政策实时更新，婚假、产假、育儿补贴一站掌握</p>
-                    </div>
-                    <i class="fas fa-baby section-hero-icon" aria-hidden="true"></i>
-                </div>
 
                 <!-- 数据亮点 -->
                 <div class="stats-highlights">
@@ -868,15 +895,35 @@
             <i class="fas fa-comments" aria-hidden="true"></i>
             <span>客服</span>
         </button>
-        <button id="dashboardBtn" class="tool-btn" title="数据看板" aria-label="打开数据看板" onclick="if(window.dashboard){window.dashboard.show()}else{alert('数据系统正在加载，请稍后再试')}">
-            <i class="fas fa-chart-line" aria-hidden="true"></i>
-            <span>数据</span>
-        </button>
         <button id="backToTop" class="tool-btn" title="返回顶部" aria-label="返回顶部" style="display:none;">
             <i class="fas fa-arrow-up" aria-hidden="true"></i>
             <span>顶部</span>
         </button>
     </div>
+
+    <!-- 移动端底部导航栏 -->
+    <nav class="mobile-bottom-nav" role="navigation" aria-label="移动端导航">
+        <button class="mobile-nav-item active" data-section="married">
+            <i class="fas fa-baby"></i>
+            <span>已婚专区</span>
+        </button>
+        <button class="mobile-nav-item" data-section="single">
+            <i class="fas fa-heart"></i>
+            <span>未婚专区</span>
+        </button>
+        <button class="mobile-nav-item" data-section="registration">
+            <i class="fas fa-ring"></i>
+            <span>婚姻登记</span>
+        </button>
+        <button class="mobile-nav-item" data-section="map">
+            <i class="fas fa-hospital"></i>
+            <span>机构地图</span>
+        </button>
+        <button class="mobile-nav-item" data-section="insurance">
+            <i class="fas fa-shield-alt"></i>
+            <span>保险报销</span>
+        </button>
+    </nav>
 
     <!-- 客服菜单 -->
     <div id="csMenu" class="cs-menu-popup">
@@ -885,8 +932,8 @@
             <button class="close-cs"><i class="fas fa-times"></i></button>
         </div>
         <div class="cs-menu-body">
-            <a href="tel:400-XXX-XXXX" class="cs-item"><i class="fas fa-phone"></i> 电话咨询<span>400-XXX-XXXX</span></a>
-            <a href="#" class="cs-item"><i class="fas fa-comment-dots"></i> 在线客服<span>9:00-18:00</span></a>
+            <a href="#" class="cs-item" onclick="showToast('微信客服：hunyutong2025', 'info'); return false;"><i class="fab fa-weixin"></i> 微信客服<span>hunyutong2025</span></a>
+            <a href="#" class="cs-item"><i class="fas fa-comment-dots"></i> 在线留言<span>24小时内回复</span></a>
         </div>
     </div>
 
@@ -895,20 +942,16 @@
         <div class="container">
             <!-- 广告合作 -->
             <div class="ad-cooperation">
-                <h4><i class="fas fa-handshake"></i> 广告合作</h4>
+                <h4><i class="fas fa-handshake"></i> 商务合作</h4>
                 <p>精准触达婚育人群，共创美好未来</p>
                 <div class="ad-cooperation-contacts">
                     <div class="ad-cooperation-item">
-                        <i class="fas fa-phone"></i>
-                        <span>商务热线：400-XXX-XXXX</span>
-                    </div>
-                    <div class="ad-cooperation-item">
                         <i class="fas fa-envelope"></i>
-                        <span>合作邮箱：ad@example.com</span>
+                        <span>合作邮箱：hunyutong@163.com</span>
                     </div>
                     <div class="ad-cooperation-item">
                         <i class="fab fa-weixin"></i>
-                        <span>微信：MarriageAd2024</span>
+                        <span>微信：hunyutong2025</span>
                     </div>
                 </div>
                 <button class="btn btn-primary" style="margin-top: 1rem;" onclick="window.open('ads/merchant-join.html', '_blank')">
@@ -919,23 +962,22 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>关于我们</h4>
-                    <p>专业的婚育服务综合平台</p>
+                    <p>专业的婚育服务综合平台，致力于为全国婚育人群提供权威、便捷的政策查询服务。</p>
                 </div>
                 <div class="footer-section">
                     <h4>联系方式</h4>
-                    <p><i class="fas fa-phone"></i> 服务热线：400-XXX-XXXX</p>
-                    <p><i class="fas fa-envelope"></i> 邮箱：service@example.com</p>
+                    <p><i class="fas fa-envelope"></i> 邮箱：hunyutong@163.com</p>
+                    <p><i class="fab fa-weixin"></i> 微信：hunyutong2025</p>
                 </div>
                 <div class="footer-section">
                     <h4>关注我们</h4>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-weixin"></i></a>
-                        <a href="#"><i class="fab fa-weibo"></i></a>
-                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#" aria-label="微信"><i class="fab fa-weixin"></i></a>
+                        <a href="#" aria-label="微博"><i class="fab fa-weibo"></i></a>
                     </div>
                 </div>
             </div>
-            <p class="copyright">&copy; 2025 婚育服务综合平台 版权所有</p>
+            <p class="copyright">&copy; 2025 婚育服务综合平台 版权所有 | <a href="https://github.com/forever435/hunyutong" target="_blank" style="color: inherit; text-decoration: underline;">GitHub</a></p>
         </div>
     </footer>
 
