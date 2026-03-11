@@ -506,23 +506,23 @@ const mockData = {
             policies['national'] = {
                 name: '国家统一政策',
                 effectiveDate: '2025年1月1日起',
-                childcare: '国家育儿补贴：每孩每年600元（0-3岁），一孩、二孩、三孩均可享受',
+                childcare: '国家育儿补贴：自2024年10月起实施，具体标准由各省制定（0-3岁）',
                 marriageLeave: '国家法定婚假3天',
                 maternityLeave: '国家法定产假98天（难产+15天，多胞胎每多一胎增加15天）',
                 parentalLeave: '各地根据实际情况制定',
                 paternalLeave: '各地根据实际情况制定',
                 subsidies: [
                     { 
-                        type: '国家统一补贴', 
-                        amount: '3600元/年', 
-                        condition: '0-3岁儿童，不限一孩二孩三孩', 
-                        process: '中央政府直接发放，地方政府可额外补充',
-                        materials: ['出生证明', '户口本'],
+                        type: '国家育儿补贴', 
+                        amount: '具体标准由各省制定', 
+                        condition: '符合生育政策的家庭，子女0-3岁', 
+                        process: '中央财政给予适当补助，各地通过政务APP或社区申请',
+                        materials: ['出生医学证明', '户口本', '身份证'],
                         applyUrl: '#'
                     }
                 ],
                 specialSubsidies: [],
-                note: '这是2025年1月1日起实施的国家级育儿补贴政策，由中央政府直接发放'
+                note: '2024年10月国务院办公厅发布育儿补贴制度，中央财政补助，各省制定具体标准'
             };
             
             // 从 nationalPolicyData 转换数据
@@ -578,21 +578,21 @@ const mockData = {
             'national': {
                 name: '国家统一政策',
                 effectiveDate: '2025年1月1日起',
-                childcare: '国家育儿补贴：每孩每年600元（0-3岁），一孩、二孩、三孩均可享受',
+                childcare: '国家育儿补贴：自2024年10月起实施，具体标准由各省制定（0-3岁）',
                 marriageLeave: '国家法定婚假3天',
                 maternityLeave: '国家法定产假98天（难产+15天，多胞胎每多一胎增加15天）',
                 parentalLeave: '各地根据实际情况制定',
                 subsidies: [
                     { 
-                        type: '国家统一补贴', 
-                        amount: '3600元/年', 
-                        condition: '0-3岁儿童，不限一孩二孩三孩', 
-                        process: '中央政府直接发放，地方政府可额外补充',
-                        materials: ['出生证明', '户口本'],
+                        type: '国家育儿补贴', 
+                        amount: '具体标准由各省制定', 
+                        condition: '符合生育政策的家庭，子女0-3岁', 
+                        process: '中央财政给予适当补助，各地通过政务APP或社区申请',
+                        materials: ['出生医学证明', '户口本', '身份证'],
                         applyUrl: '#'
                     }
                 ],
-                note: '这是2025年1月1日起实施的国家级育儿补贴政策，由中央政府直接发放'
+                note: '2024年10月国务院办公厅发布育儿补贴制度，中央财政补助，各省制定具体标准'
             },
             // 以下是示例数据，实际会从 policy-data-2025.js 加载
             '北京市-北京市-朝阳区': {
