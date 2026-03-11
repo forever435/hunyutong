@@ -1,5 +1,5 @@
 // 婚育服务通 PWA Service Worker
-const CACHE_VERSION = 'v2.0.0';
+const CACHE_VERSION = 'v2.1.0';
 const CACHE_NAME = `hunyutong-${CACHE_VERSION}`;
 
 // 核心缓存文件（使用相对路径，兼容GitHub Pages）
@@ -9,6 +9,7 @@ const CORE_ASSETS = [
   './css/styles.css',
   './css/map-styles.css',
   './css/accessibility.css',
+  './css/wedding-prep.css',
   './js/script.js',
   './js/policy-data-2025.js',
   './js/policy-data-extended.js',
@@ -16,6 +17,7 @@ const CORE_ASSETS = [
   './js/ux-enhancements.js',
   './js/user-system.js',
   './js/accessibility.js',
+  './js/wedding-prep.js',
   './js/city-coords.js',
   './js/all-districts.js',
   './manifest.json'

@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/map-styles.css">
     <link rel="stylesheet" href="css/accessibility.css">
+    <link rel="stylesheet" href="css/wedding-prep.css">
     <!-- 引入图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -205,7 +206,7 @@
             </div>
             <nav class="nav" role="navigation" aria-label="主导航">
                 <button class="nav-btn active" data-section="married"><i class="fas fa-baby"></i> 已婚人群专区</button>
-                <button class="nav-btn" data-section="single"><i class="fas fa-heart"></i> 未婚人群专区</button>
+                <button class="nav-btn" data-section="single"><i class="fas fa-clipboard-check"></i> 备婚攻略站</button>
                 <button class="nav-btn" data-section="registration"><i class="fas fa-ring"></i> 婚姻登记指南</button>
                 <button class="nav-btn" data-section="map"><i class="fas fa-hospital"></i> 服务机构地图</button>
                 <button class="nav-btn" data-section="insurance"><i class="fas fa-shield-alt"></i> 生育保险报销</button>
@@ -448,7 +449,7 @@
             </div>
         </section>
 
-        <!-- 未婚人群专区 -->
+        <!-- 备婚攻略站 -->
         <section id="single" class="section">
             <div class="container">
                 <!-- 面包屑导航 -->
@@ -458,118 +459,307 @@
                     </div>
                     <span class="breadcrumb-separator">/</span>
                     <div class="breadcrumb-item">
-                        <span class="breadcrumb-current">未婚人群专区</span>
+                        <span class="breadcrumb-current">备婚攻略站</span>
                     </div>
                 </nav>
 
                 <!-- 顶部横幅广告 -->
                 <div class="ad-banner ad-container">
                     <span class="ad-label">广告</span>
-                    <a href="#" class="ad-mock" target="_blank">
-                        <div class="ad-mock-icon">💑</div>
-                        <div class="ad-mock-title">高端婚恋服务</div>
-                        <div class="ad-mock-desc">实名认证 · 专业红娘 · 成功率高</div>
+                    <a href="ads/wedding-photography.html" class="ad-mock" target="_blank">
+                        <div class="ad-mock-icon">📸</div>
+                        <div class="ad-mock-title">婚纱摄影 · 限时特惠</div>
+                        <div class="ad-mock-desc">多风格任选 · 底片全送 · 精修60张</div>
                     </a>
                 </div>
 
-                <h2 class="section-title">未婚人群专区</h2>
+                <h2 class="section-title">备婚攻略站</h2>
 
                 <!-- Hero横幅 -->
-                <div class="section-hero" style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 60%, #1a2f5e 100%);">
+                <div class="section-hero" style="background: linear-gradient(135deg, #E8636F 0%, #D4545F 50%, #C94D58 100%);">
                     <div class="section-hero-text">
-                        <h2>智能婚恋匹配</h2>
-                        <p>基于户籍、职业、性格多维度精准匹配，实名认证保障安全，找到志同道合的另一半</p>
+                        <h2>从准备到领证，一站搞定</h2>
+                        <p>婚前清单、婚检指南、成本预算、法律知识，让备婚之路清晰又安心</p>
                     </div>
-                    <i class="fas fa-heart section-hero-icon" aria-hidden="true"></i>
+                    <i class="fas fa-clipboard-check section-hero-icon" aria-hidden="true"></i>
                 </div>
 
                 <!-- 服务亮点 -->
                 <div class="stats-highlights">
                     <div class="stat-highlight">
-                        <div class="stat-highlight-number">100%</div>
-                        <div class="stat-highlight-label">实名认证</div>
-                    </div>
-                    <div class="stat-highlight">
-                        <div class="stat-highlight-number">AI</div>
-                        <div class="stat-highlight-label">智能匹配</div>
-                    </div>
-                    <div class="stat-highlight">
-                        <div class="stat-highlight-number">隐私</div>
-                        <div class="stat-highlight-label">安全保障</div>
+                        <div class="stat-highlight-number">31省</div>
+                        <div class="stat-highlight-label">婚检政策</div>
                     </div>
                     <div class="stat-highlight">
                         <div class="stat-highlight-number">免费</div>
-                        <div class="stat-highlight-label">基础服务</div>
+                        <div class="stat-highlight-label">婚检查询</div>
                     </div>
-                </div>
-                
-                <div class="matching-form">
-                    <div class="form-group">
-                        <label><i class="fas fa-map-marker-alt"></i> 户籍/常住地</label>
-                        <input type="text" id="singleLocation" class="input" placeholder="请输入户籍或常住地">
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">全面</div>
+                        <div class="stat-highlight-label">备婚清单</div>
                     </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-building"></i> 工作单位</label>
-                        <input type="text" id="workplace" class="input" placeholder="请输入工作单位">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-smile"></i> 性格特点</label>
-                        <input type="text" id="personality" class="input" placeholder="例如：开朗、稳重">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-wallet"></i> 经济条件</label>
-                        <select id="economic" class="select-input">
-                            <option value="">请选择</option>
-                            <option value="low">一般</option>
-                            <option value="medium">中等</option>
-                            <option value="high">良好</option>
-                            <option value="veryHigh">优秀</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-heart"></i> 择偶偏好</label>
-                        <textarea id="preference" class="textarea" placeholder="请描述您的择偶偏好"></textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button id="aiMatch" class="btn btn-primary"><i class="fas fa-robot"></i> AI智能匹配</button>
-                        <button id="manualMatch" class="btn btn-secondary"><i class="fas fa-search"></i> 自主匹配</button>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">实用</div>
+                        <div class="stat-highlight-label">法律知识</div>
                     </div>
                 </div>
 
-                <!-- 匹配结果 -->
-                <div id="matchResults" class="match-results">
-                    <!-- 动态生成匹配结果 -->
+                <!-- 快捷功能入口 -->
+                <div class="quick-entries">
+                    <div class="quick-entry" onclick="showPrepChecklist()">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, #E8636F, #C94D58);"><i class="fas fa-tasks"></i></div>
+                        <span>备婚清单</span>
+                    </div>
+                    <div class="quick-entry" onclick="showWeddingCostCalc()">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, #F5A623, #e8941a);"><i class="fas fa-calculator"></i></div>
+                        <span>成本计算</span>
+                    </div>
+                    <div class="quick-entry" onclick="showPreMaritalCheckup()">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));"><i class="fas fa-heartbeat"></i></div>
+                        <span>婚检指南</span>
+                    </div>
+                    <div class="quick-entry" onclick="showMarriageLaw()">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, var(--success), #2aa34a);"><i class="fas fa-gavel"></i></div>
+                        <span>法律知识</span>
+                    </div>
                 </div>
 
-                <!-- 获取联系方式弹窗 -->
-                <div id="contactModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h3><i class="fas fa-shield-alt"></i> 获取联系方式</h3>
-                        <p class="warning"><i class="fas fa-exclamation-triangle"></i> 为保护用户隐私，请如实填写以下信息</p>
-                        <div class="form-group">
-                            <label><i class="fas fa-user"></i> 实名认证</label>
-                            <input type="text" id="realName" class="input" placeholder="请输入真实姓名">
-                            <span class="error-msg" id="nameError"></span>
-                            <input type="text" id="idCard" class="input" placeholder="请输入身份证号" maxlength="18">
-                            <span class="error-msg" id="idCardError"></span>
+                <!-- ===== 模块1：备婚准备清单 ===== -->
+                <div id="prepChecklist" class="prep-module">
+                    <h3 class="subsection-title"><i class="fas fa-tasks"></i> 备婚准备清单</h3>
+                    <p class="module-desc">按时间线整理的完整备婚待办事项，勾选已完成项目追踪进度</p>
+                    
+                    <div class="checklist-progress">
+                        <div class="checklist-progress-bar">
+                            <div id="checklistProgressFill" class="checklist-progress-fill" style="width: 0%"></div>
                         </div>
-                        <div class="form-group">
-                            <label><i class="fas fa-calendar-alt"></i> 何时何地</label>
-                            <input type="text" id="whenWhere" class="input" placeholder="例如：2024年1月在北京朝阳区">
+                        <span id="checklistProgressText" class="checklist-progress-text">0/0 已完成</span>
+                    </div>
+
+                    <div class="checklist-timeline">
+                        <!-- 3-6个月前 -->
+                        <div class="checklist-phase">
+                            <div class="checklist-phase-header">
+                                <span class="phase-badge">📅 3-6个月前</span>
+                                <span class="phase-title">前期筹备</span>
+                            </div>
+                            <div class="checklist-items">
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="early"> 确定婚期和预算</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="early"> 双方父母见面沟通</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="early"> 预约婚纱摄影</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="early"> 选定婚宴场地</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="early"> 了解当地婚检政策（免费婚检）</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="early"> 了解婚前财产相关法律</label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label><i class="fas fa-comment"></i> 获取原因</label>
-                            <textarea id="reason" class="textarea" placeholder="请详细说明获取联系方式的原因"></textarea>
+                        <!-- 1-3个月前 -->
+                        <div class="checklist-phase">
+                            <div class="checklist-phase-header">
+                                <span class="phase-badge">📅 1-3个月前</span>
+                                <span class="phase-title">核心准备</span>
+                            </div>
+                            <div class="checklist-items">
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="mid"> 完成婚前体检</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="mid"> 准备登记材料（身份证、户口本、照片）</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="mid"> 预约婚姻登记</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="mid"> 确定婚礼流程和主持人</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="mid"> 发送请柬/通知亲友</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="mid"> 购买婚戒</label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="privacyAgree">
-                                我已阅读并同意<a href="#" class="link">《隐私协议》</a>和<a href="#" class="link">《用户服务协议》</a>
-                            </label>
+                        <!-- 1个月内 -->
+                        <div class="checklist-phase">
+                            <div class="checklist-phase-header">
+                                <span class="phase-badge">📅 1个月内</span>
+                                <span class="phase-title">最终冲刺</span>
+                            </div>
+                            <div class="checklist-items">
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="final"> 领取结婚证</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="final"> 确认婚宴菜单和座位</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="final"> 婚礼彩排</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="final"> 准备新房布置</label>
+                                <label class="checklist-item"><input type="checkbox" class="prep-check" data-phase="final"> 确认蜜月行程</label>
+                            </div>
                         </div>
-                        <button id="faceVerifyBtn" class="btn btn-secondary"><i class="fas fa-camera"></i> 人脸识别验证</button>
-                        <button id="submitContact" class="btn btn-primary" disabled>提交验证</button>
+                    </div>
+                </div>
+
+                <!-- ===== 模块2：结婚成本计算器 ===== -->
+                <div id="weddingCostCalc" class="prep-module">
+                    <h3 class="subsection-title"><i class="fas fa-calculator"></i> 结婚成本计算器</h3>
+                    <p class="module-desc">预估各项开支，合理规划婚礼预算（金额仅供参考，各地差异较大）</p>
+
+                    <div class="cost-calc-form">
+                        <div class="cost-calc-group">
+                            <h4><i class="fas fa-ring"></i> 婚礼相关</h4>
+                            <div class="form-group">
+                                <label>婚宴费用（元）</label>
+                                <input type="number" id="costBanquet" class="input" placeholder="如：50000" value="0">
+                                <span class="cost-hint">参考：一线城市5-15万，二三线2-8万</span>
+                            </div>
+                            <div class="form-group">
+                                <label>婚纱摄影（元）</label>
+                                <input type="number" id="costPhoto" class="input" placeholder="如：8000" value="0">
+                                <span class="cost-hint">参考：3000-20000元</span>
+                            </div>
+                            <div class="form-group">
+                                <label>婚庆布置（元）</label>
+                                <input type="number" id="costDecor" class="input" placeholder="如：15000" value="0">
+                                <span class="cost-hint">参考：5000-30000元</span>
+                            </div>
+                            <div class="form-group">
+                                <label>婚戒首饰（元）</label>
+                                <input type="number" id="costRing" class="input" placeholder="如：20000" value="0">
+                                <span class="cost-hint">参考：5000-50000元</span>
+                            </div>
+                        </div>
+                        <div class="cost-calc-group">
+                            <h4><i class="fas fa-home"></i> 生活相关</h4>
+                            <div class="form-group">
+                                <label>彩礼/嫁妆（元）</label>
+                                <input type="number" id="costBrideprice" class="input" placeholder="如：100000" value="0">
+                                <span class="cost-hint">各地习俗差异大，量力而行</span>
+                            </div>
+                            <div class="form-group">
+                                <label>新房装修/家电（元）</label>
+                                <input type="number" id="costHome" class="input" placeholder="如：50000" value="0">
+                            </div>
+                            <div class="form-group">
+                                <label>蜜月旅行（元）</label>
+                                <input type="number" id="costHoneymoon" class="input" placeholder="如：15000" value="0">
+                            </div>
+                            <div class="form-group">
+                                <label>其他费用（元）</label>
+                                <input type="number" id="costOther" class="input" placeholder="如：5000" value="0">
+                                <span class="cost-hint">喜糖、请柬、车队等</span>
+                            </div>
+                        </div>
+                        <button id="calcWeddingCost" class="btn btn-primary"><i class="fas fa-calculator"></i> 计算总预算</button>
+                        <div id="costResult" class="cost-result" style="display:none;">
+                            <div class="cost-result-total">
+                                <span>预估总费用</span>
+                                <span id="costTotalAmount" class="cost-total-num">¥0</span>
+                            </div>
+                            <div id="costBreakdown" class="cost-breakdown"></div>
+                            <p class="cost-disclaimer"><i class="fas fa-info-circle"></i> 以上金额仅为预估参考，实际费用因地区、个人选择等因素差异较大</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== 模块3：婚前体检指南 ===== -->
+                <div id="preMaritalCheckup" class="prep-module">
+                    <h3 class="subsection-title"><i class="fas fa-heartbeat"></i> 婚前体检指南</h3>
+                    <p class="module-desc">全国大部分地区提供免费婚检服务，了解项目和流程，为健康婚姻保驾护航</p>
+
+                    <div class="checkup-info">
+                        <div class="checkup-card">
+                            <div class="checkup-card-icon">🆓</div>
+                            <h4>免费婚检政策</h4>
+                            <p>全国多数地区已实行免费婚前医学检查。通常在婚姻登记时由民政部门发放免费婚检单，到指定妇幼保健院即可检查。</p>
+                        </div>
+                        <div class="checkup-card">
+                            <div class="checkup-card-icon">📋</div>
+                            <h4>常规检查项目</h4>
+                            <ul class="checkup-list">
+                                <li>一般体格检查（身高、体重、血压等）</li>
+                                <li>生殖系统检查</li>
+                                <li>血常规、尿常规</li>
+                                <li>肝功能、肾功能</li>
+                                <li>传染病筛查（乙肝、梅毒、HIV等）</li>
+                                <li>遗传病家族史询问</li>
+                                <li>心电图、胸透（部分地区）</li>
+                            </ul>
+                        </div>
+                        <div class="checkup-card">
+                            <div class="checkup-card-icon">📝</div>
+                            <h4>办理流程</h4>
+                            <ol class="checkup-steps">
+                                <li>携带双方身份证、户口本到民政局</li>
+                                <li>领取免费婚检申请单</li>
+                                <li>到指定医疗机构进行检查</li>
+                                <li>一般3-7个工作日出结果</li>
+                                <li>领取婚检报告后可办理登记</li>
+                            </ol>
+                        </div>
+                        <div class="checkup-card">
+                            <div class="checkup-card-icon">💡</div>
+                            <h4>温馨提示</h4>
+                            <ul class="checkup-list">
+                                <li>婚检为自愿行为，但强烈建议进行</li>
+                                <li>检查前一天避免饮酒，空腹抽血</li>
+                                <li>女方避开月经期</li>
+                                <li>携带3张1寸免冠照片</li>
+                                <li>部分地区支持婚检与登记同日办理</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== 模块4：婚姻法律知识 ===== -->
+                <div id="marriageLaw" class="prep-module">
+                    <h3 class="subsection-title"><i class="fas fa-gavel"></i> 婚姻法律知识</h3>
+                    <p class="module-desc">了解《民法典》婚姻家庭编核心条款，知法懂法，守护幸福</p>
+
+                    <div class="law-faq">
+                        <div class="law-faq-item" onclick="toggleLawFaq(this)">
+                            <div class="law-faq-question">
+                                <i class="fas fa-chevron-right law-faq-arrow"></i>
+                                <span>婚前财产和婚后财产如何区分？</span>
+                            </div>
+                            <div class="law-faq-answer">
+                                <p>根据《民法典》第1063条，一方的婚前财产属于个人财产。婚后取得的工资、奖金、生产经营收益等属于夫妻共同财产（第1062条）。建议婚前做好财产公证，避免日后纠纷。</p>
+                            </div>
+                        </div>
+                        <div class="law-faq-item" onclick="toggleLawFaq(this)">
+                            <div class="law-faq-question">
+                                <i class="fas fa-chevron-right law-faq-arrow"></i>
+                                <span>彩礼能要求退还吗？</span>
+                            </div>
+                            <div class="law-faq-answer">
+                                <p>根据相关司法解释，以下情况可以要求退还彩礼：①双方未办理结婚登记；②双方办理登记但确未共同生活；③婚前给付导致给付人生活困难。2024年最高法新规进一步明确了彩礼返还的具体标准。</p>
+                            </div>
+                        </div>
+                        <div class="law-faq-item" onclick="toggleLawFaq(this)">
+                            <div class="law-faq-question">
+                                <i class="fas fa-chevron-right law-faq-arrow"></i>
+                                <span>婚前协议有法律效力吗？</span>
+                            </div>
+                            <div class="law-faq-answer">
+                                <p>有效力。《民法典》第1065条规定，男女双方可以约定婚姻关系存续期间所得的财产以及婚前财产归各自所有、共同所有或者部分各自所有、部分共同所有。约定应当采用书面形式，对双方具有法律约束力。</p>
+                            </div>
+                        </div>
+                        <div class="law-faq-item" onclick="toggleLawFaq(this)">
+                            <div class="law-faq-question">
+                                <i class="fas fa-chevron-right law-faq-arrow"></i>
+                                <span>法定结婚年龄是多少？</span>
+                            </div>
+                            <div class="law-faq-answer">
+                                <p>《民法典》第1047条规定：结婚年龄，男不得早于二十二周岁，女不得早于二十周岁。</p>
+                            </div>
+                        </div>
+                        <div class="law-faq-item" onclick="toggleLawFaq(this)">
+                            <div class="law-faq-question">
+                                <i class="fas fa-chevron-right law-faq-arrow"></i>
+                                <span>婚姻登记需要哪些条件？</span>
+                            </div>
+                            <div class="law-faq-answer">
+                                <p>①双方自愿；②达到法定婚龄；③非直系血亲和三代以内旁系血亲；④双方均无配偶。需携带双方身份证、户口本，到一方户籍所在地民政局办理。目前全国已推行婚姻登记"跨省通办"试点。</p>
+                            </div>
+                        </div>
+                        <div class="law-faq-item" onclick="toggleLawFaq(this)">
+                            <div class="law-faq-question">
+                                <i class="fas fa-chevron-right law-faq-arrow"></i>
+                                <span>婚后房产怎么算？</span>
+                            </div>
+                            <div class="law-faq-answer">
+                                <p>婚前一方全款购买的房产属于个人财产；婚前一方付首付、婚后共同还贷的，离婚时由双方协议处理，协议不成的由法院根据实际情况判决；婚后共同购买的房产一般属于夫妻共同财产。建议购房时明确产权归属。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="law-disclaimer">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>以上内容仅供参考，不构成法律建议。具体法律问题请咨询专业律师或当地法律援助中心（全国法律援助热线：<strong>12348</strong>）。</p>
                     </div>
                 </div>
             </div>
@@ -908,8 +1098,8 @@
             <span>已婚专区</span>
         </button>
         <button class="mobile-nav-item" data-section="single">
-            <i class="fas fa-heart"></i>
-            <span>未婚专区</span>
+            <i class="fas fa-clipboard-check"></i>
+            <span>备婚攻略</span>
         </button>
         <button class="mobile-nav-item" data-section="registration">
             <i class="fas fa-ring"></i>
@@ -1013,6 +1203,9 @@
     
     <!-- PWA安装功能 - 婚育服务通APP版 -->
     <script src="js/pwa-install.js"></script>
+    
+    <!-- 备婚攻略站 -->
+    <script src="js/wedding-prep.js"></script>
     
     <!-- 用户体验增强 -->
     <script src="js/ux-enhancements.js"></script>

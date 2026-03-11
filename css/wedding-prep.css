@@ -1,0 +1,306 @@
+/* ===== 备婚攻略站样式 ===== */
+
+/* 模块通用 */
+.prep-module {
+    background: var(--card-bg, #fff);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.module-desc {
+    color: var(--text-muted, #888);
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+}
+
+/* 备婚清单进度条 */
+.checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+.checklist-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--bg-secondary, #f0f0f0);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.checklist-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #E8636F, #F5A623);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+.checklist-progress-text {
+    font-size: 0.85rem;
+    color: var(--text-muted, #888);
+    white-space: nowrap;
+}
+
+/* 时间线阶段 */
+.checklist-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.checklist-phase {
+    border-left: 3px solid #E8636F;
+    padding-left: 1rem;
+}
+.checklist-phase-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.8rem;
+}
+.phase-badge {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #E8636F;
+}
+.phase-title {
+    font-size: 0.9rem;
+    color: var(--text-primary, #333);
+    font-weight: 500;
+}
+.checklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.95rem;
+    color: var(--text-primary, #333);
+}
+
+.checklist-item:hover {
+    background: var(--bg-secondary, #f5f5f5);
+}
+.checklist-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #E8636F;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.checklist-item input[type="checkbox"]:checked + span,
+.checklist-item:has(input:checked) {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* 成本计算器 */
+.cost-calc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.cost-calc-group {
+    background: var(--bg-secondary, #f8f8f8);
+    border-radius: 12px;
+    padding: 1.2rem;
+}
+.cost-calc-group h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: var(--text-primary, #333);
+}
+.cost-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted, #999);
+    margin-top: 4px;
+}
+.cost-result {
+    background: linear-gradient(135deg, #E8636F, #C94D58);
+    border-radius: 16px;
+    padding: 1.5rem;
+    color: #fff;
+    margin-top: 1rem;
+}
+.cost-result-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+.cost-total-num {
+    font-size: 2rem;
+    font-weight: 700;
+}
+.cost-breakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.cost-breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+.cost-disclaimer {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* 婚检指南卡片 */
+.checkup-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+.checkup-card {
+    background: var(--bg-secondary, #f8f8f8);
+    border-radius: 12px;
+    padding: 1.2rem;
+}
+.checkup-card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.checkup-card h4 {
+    margin: 0 0 0.8rem 0;
+    font-size: 1rem;
+    color: var(--text-primary, #333);
+}
+.checkup-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+    line-height: 1.6;
+}
+.checkup-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.checkup-list li {
+    padding: 4px 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+    position: relative;
+    padding-left: 16px;
+}
+.checkup-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #E8636F;
+    font-weight: bold;
+}
+.checkup-steps {
+    padding-left: 20px;
+    margin: 0;
+}
+.checkup-steps li {
+    padding: 4px 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+}
+
+/* 法律知识FAQ */
+.law-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.law-faq-item {
+    background: var(--bg-secondary, #f8f8f8);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+.law-faq-item:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.law-faq-question {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem 1.2rem;
+    font-weight: 500;
+    color: var(--text-primary, #333);
+}
+.law-faq-arrow {
+    color: #E8636F;
+    font-size: 0.8rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+.law-faq-item.active .law-faq-arrow {
+    transform: rotate(90deg);
+}
+.law-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 1.2rem;
+}
+.law-faq-item.active .law-faq-answer {
+    max-height: 300px;
+    padding: 0 1.2rem 1rem;
+}
+.law-faq-answer p {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+    line-height: 1.7;
+    margin: 0;
+}
+.law-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #fff3cd;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+}
+.law-disclaimer i {
+    color: #F5A623;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+.law-disclaimer p {
+    font-size: 0.85rem;
+    color: #856404;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .checkup-info {
+        grid-template-columns: 1fr;
+    }
+    .cost-breakdown {
+        grid-template-columns: 1fr;
+    }
+    .cost-total-num {
+        font-size: 1.5rem;
+    }
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .law-disclaimer {
+        background: rgba(245, 166, 35, 0.15);
+    }
+    .law-disclaimer p {
+        color: #ffc107;
+    }
+}
