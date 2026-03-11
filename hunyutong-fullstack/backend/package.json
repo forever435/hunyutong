@@ -1,0 +1,22 @@
+{
+  "name": "hunyutong-backend",
+  "version": "1.0.0",
+  "description": "婚育服务通后端API服务",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "婚育服务",
+    "政策查询",
+    "API"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  }
+}

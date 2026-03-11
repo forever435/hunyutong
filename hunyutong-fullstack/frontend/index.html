@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>婚育服务通 - 全栈版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #fef8fa 0%, #ffe5ec 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(255, 158, 181, 0.2);
+        }
+
+        h1 {
+            color: #ff9eb5;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeaa7;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #ff9eb5;
+            box-shadow: 0 0 0 3px rgba(255, 158, 181, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff9eb5 0%, #ff6b9d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 158, 181, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #ff9eb5;
+        }
+
+        .result h3 {
+            color: #ff9eb5;
+            margin-bottom: 15px;
+        }
+
+        .result-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .result-label {
+            font-weight: bold;
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .result-value {
+            color: #333;
+        }
+
+        .api-info {
+            margin-top: 40px;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 10px;
+            border-left: 5px solid #2196f3;
+        }
+
+        .api-info h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .api-info code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #d32f2f;
+            font-family: 'Courier New', monospace;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💝 婚育服务通</h1>
+        <p class="subtitle">全栈版 - 连接真实数据库</p>
+
+        <div id="backendStatus" class="status loading">
+            正在连接后端服务器...
+        </div>
+
+        <div class="form-group">
+            <label for="province">选择省份</label>
+            <select id="province">
+                <option value="">请先启动后端服务器</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="city">选择城市</label>
+            <select id="city" disabled>
+                <option value="">请先选择省份</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="district">选择区县</label>
+            <select id="district" disabled>
+                <option value="">请先选择城市</option>
+            </select>
+        </div>
+
+        <button id="queryBtn" disabled>查询政策</button>
+
+        <div id="result" style="display: none;"></div>
+
+        <div class="api-info">
+            <h3>🔧 开发者信息</h3>
+            <p><strong>后端地址：</strong><code id="apiUrl">http://localhost:3000</code></p>
+            <p><strong>当前调用：</strong><code id="currentApi">-</code></p>
+            <p><strong>数据来源：</strong>MySQL数据库（实时数据）</p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3000/api';
+        
+        const backendStatus = document.getElementById('backendStatus');
+        const provinceSelect = document.getElementById('province');
+        const citySelect = document.getElementById('city');
+        const districtSelect = document.getElementById('district');
+        const queryBtn = document.getElementById('queryBtn');
+        const resultDiv = document.getElementById('result');
+        const currentApiSpan = document.getElementById('currentApi');
+
+        async function testBackend() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/test`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    backendStatus.className = 'status success';
+                    backendStatus.textContent = '✅ 后端服务器连接成功！';
+                    loadProvinces();
+                } else {
+                    throw new Error('后端返回失败');
+                }
+            } catch (error) {
+                backendStatus.className = 'status error';
+                backendStatus.innerHTML = `
+                    ❌ 后端服务器连接失败<br>
+                    <small>请确保后端服务器已启动（npm start）</small>
+                `;
+                console.error('后端连接失败:', error);
+            }
+        }
+
+        async function loadProvinces() {
+            try {
+                currentApiSpan.textContent = 'GET /api/provinces';
+                const response = await fetch(`${API_BASE_URL}/provinces`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    provinceSelect.innerHTML = '<option value="">请选择省份</option>';
+                    data.data.forEach(province => {
+                        const option = document.createElement('option');
+                        option.value = province;
+                        option.textContent = province;
+                        provinceSelect.appendChild(option);
+                    });
+                    provinceSelect.disabled = false;
+                }
+            } catch (error) {
+                console.error('加载省份失败:', error);
+                alert('加载省份列表失败，请检查后端服务器');
+            }
+        }
+
+        async function loadCities(province) {
+            try {
+                currentApiSpan.textContent = `GET /api/cities/${province}`;
+                const response = await fetch(`${API_BASE_URL}/cities/${encodeURIComponent(province)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    citySelect.innerHTML = '<option value="">请选择城市</option>';
+                    data.data.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        citySelect.appendChild(option);
+                    });
+                    citySelect.disabled = false;
+                    districtSelect.disabled = true;
+                    districtSelect.innerHTML = '<option value="">请先选择城市</option>';
+                }
+            } catch (error) {
+                console.error('加载城市失败:', error);
+                alert('加载城市列表失败');
+            }
+        }
+
+        async function loadDistricts(province, city) {
+            try {
+                currentApiSpan.textContent = `GET /api/districts/${province}/${city}`;
+                const response = await fetch(`${API_BASE_URL}/districts/${encodeURIComponent(province)}/${encodeURIComponent(city)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    districtSelect.innerHTML = '<option value="">请选择区县</option>';
+                    data.data.forEach(district => {
+                        const option = document.createElement('option');
+                        option.value = district;
+                        option.textContent = district;
+                        districtSelect.appendChild(option);
+                    });
+                    districtSelect.disabled = false;
+                }
+            } catch (error) {
+                console.error('加载区县失败:', error);
+                alert('加载区县列表失败');
+            }
+        }
+
+        async function queryPolicy() {
+            const province = provinceSelect.value;
+            const city = citySelect.value;
+            const district = districtSelect.value;
+
+            if (!province || !city || !district) {
+                alert('请选择完整的地区信息');
+                return;
+            }
+
+            try {
+                queryBtn.disabled = true;
+                queryBtn.innerHTML = '<span class="loading-spinner"></span> 查询中...';
+                currentApiSpan.textContent = `GET /api/policy/${province}/${city}/${district}`;
+
+                const response = await fetch(`${API_BASE_URL}/policy/${encodeURIComponent(province)}/${encodeURIComponent(city)}/${encodeURIComponent(district)}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayResult(data.data);
+                } else {
+                    alert(data.message || '查询失败');
+                }
+            } catch (error) {
+                console.error('查询失败:', error);
+                alert('查询失败，请检查网络连接');
+            } finally {
+                queryBtn.disabled = false;
+                queryBtn.textContent = '查询政策';
+            }
+        }
+
+        function displayResult(policy) {
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <h3>📋 ${policy.province} ${policy.city} ${policy.district} 政策详情</h3>
+                <div class="result-item">
+                    <span class="result-label">💍 婚假：</span>
+                    <span class="result-value">${policy.marriage_leave || '暂无数据'}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">🤰 产假：</span>
+                    <span class="result-value">${policy.maternity_leave || '暂无数据'}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">👶 育儿假：</span>
+                    <span class="result-value">${policy.parental_leave || '暂无数据'}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">👨‍👩‍👧 陪产假：</span>
+                    <span class="result-value">${policy.paternal_leave || '暂无数据'}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">💰 一孩补贴：</span>
+                    <span class="result-value">${policy.first_child_subsidy || '暂无数据'}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">💰💰 二孩补贴：</span>
+                    <span class="result-value">${policy.second_child_subsidy || '暂无数据'}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">💰💰💰 三孩补贴：</span>
+                    <span class="result-value">${policy.third_child_subsidy || '暂无数据'}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">🎁 特殊补贴：</span>
+                    <span class="result-value">${policy.special_subsidies || '暂无数据'}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">📅 数据更新时间：</span>
+                    <span class="result-value">${new Date(policy.updated_at).toLocaleString('zh-CN')}</span>
+                </div>
+            `;
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        provinceSelect.addEventListener('change', (e) => {
+            if (e.target.value) {
+                loadCities(e.target.value);
+                resultDiv.style.display = 'none';
+            }
+        });
+
+        citySelect.addEventListener('change', (e) => {
+            if (e.target.value) {
+                loadDistricts(provinceSelect.value, e.target.value);
+                resultDiv.style.display = 'none';
+            }
+        });
+
+        districtSelect.addEventListener('change', () => {
+            if (districtSelect.value) {
+                queryBtn.disabled = false;
+            }
+        });
+
+        queryBtn.addEventListener('click', queryPolicy);
+
+        testBackend();
+    </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>婚纱摄影特惠 - 婚育服务平台</title>
+    <meta name="description" content="领证送婚纱照，限时优惠，专业摄影团队">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .studios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .studio-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .studio-card:hover {
+            transform: translateY(-10px);
+        }
+        .studio-cover {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+        }
+        .studio-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+        }
+        .studio-info {
+            padding: 1.5rem;
+        }
+        .studio-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .studio-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: #ffa502;
+        }
+        .studio-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-tag {
+            background: #f8f9fa;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .studio-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .price-from {
+            font-size: 0.9rem;
+            color: #999;
+        }
+        .price-amount {
+            font-size: 2rem;
+            color: #ff4757;
+            font-weight: bold;
+        }
+        .studio-location {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .studio-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .btn-consult {
+            flex: 1;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+        .btn-book {
+            flex: 1;
+            padding: 0.75rem;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .studios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-heart"></i> 婚育服务平台</h1>
+            <button onclick="window.history.back()" class="btn btn-secondary">返回首页</button>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <h1>💍 婚纱摄影特惠</h1>
+        <p>领证送婚纱照 · 限时优惠 · 专业摄影团队</p>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <div class="studios-grid" id="studiosGrid"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2024 婚育服务综合平台 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        const studios = [
+            {
+                id: 1,
+                name: '浪漫时光婚纱摄影',
+                rating: 4.9,
+                reviews: 1250,
+                price: 2999,
+                location: '市中心商业区',
+                features: ['一对一服务', '无隐形消费', '底片全送', '免费重拍'],
+                tag: '人气推荐',
+                icon: '📸'
+            },
+            {
+                id: 2,
+                name: '唯美印象摄影工作室',
+                rating: 4.8,
+                reviews: 890,
+                price: 3999,
+                location: '滨江新区',
+                features: ['韩式风格', '精修30张', '赠送相册', '包接送'],
+                tag: '高端定制',
+                icon: '💐'
+            },
+            {
+                id: 3,
+                name: '幸福时刻婚纱馆',
+                rating: 4.7,
+                reviews: 650,
+                price: 1999,
+                location: '老城区',
+                features: ['性价比高', '服装不限套', '外景拍摄', '当天取片'],
+                tag: '超值套餐',
+                icon: '💒'
+            },
+            {
+                id: 4,
+                name: '爱情故事摄影',
+                rating: 4.9,
+                reviews: 1100,
+                price: 4999,
+                location: '高新技术区',
+                features: ['旅拍服务', '海外拍摄', '全程跟拍', 'VIP服务'],
+                tag: '旅拍专家',
+                icon: '✈️'
+            }
+        ];
+
+        function renderStudios() {
+            const grid = document.getElementById('studiosGrid');
+            grid.innerHTML = studios.map(studio => `
+                <div class="studio-card">
+                    <div class="studio-cover">
+                        ${studio.icon}
+                        <span class="studio-tag">${studio.tag}</span>
+                    </div>
+                    <div class="studio-info">
+                        <h3 class="studio-name">${studio.name}</h3>
+                        <div class="studio-rating">
+                            <span>⭐ ${studio.rating}</span>
+                            <span>(${studio.reviews}条评价)</span>
+                        </div>
+                        <div class="studio-features">
+                            ${studio.features.map(f => `<span class="feature-tag">${f}</span>`).join('')}
+                        </div>
+                        <div class="studio-price">
+                            <span class="price-from">套餐起价</span>
+                            <span class="price-amount">¥${studio.price}</span>
+                        </div>
+                        <div class="studio-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${studio.location}</span>
+                        </div>
+                        <div class="studio-actions">
+                            <button class="btn-consult" onclick="consult(${studio.id})">
+                                <i class="fas fa-comments"></i> 在线咨询
+                            </button>
+                            <button class="btn-book" onclick="book(${studio.id})">
+                                <i class="fas fa-calendar-check"></i> 预约拍摄
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function consult(id) {
+            const studio = studios.find(s => s.id === id);
+            alert(`咨询${studio.name}\n\n提示：实际需要对接客服系统或微信`);
+        }
+
+        function book(id) {
+            const studio = studios.find(s => s.id === id);
+            alert(`预约${studio.name}\n\n提示：实际需要预约系统`);
+        }
+
+        renderStudios();
+    </script>
+</body>
+</html>

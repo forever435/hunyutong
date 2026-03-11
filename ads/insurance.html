@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>母婴保险特惠 - 婚育服务平台</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 4rem 1rem; text-align: center; color: white; }
+        .plans-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin: 3rem 0; }
+        .plan-card { background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
+        .plan-name { font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem; }
+        .plan-coverage { background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .plan-price { font-size: 1.8rem; color: #667eea; font-weight: bold; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-heart"></i> 婚育服务平台</h1>
+            <button onclick="window.history.back()" class="btn btn-secondary">返回首页</button>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>🛡️ 母婴保险特惠</h1>
+        <p>全面保障 · 快速理赔 · 安心无忧</p>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <div class="plans-grid" id="plansGrid"></div>
+        </div>
+    </main>
+
+    <script>
+        const plans = [
+            { name: '孕期保障计划', price: 680, coverage: ['孕期并发症', '住院津贴', '新生儿保障'], icon: '🤰' },
+            { name: '母婴综合保险', price: 1280, coverage: ['孕期+产后', '婴儿疾病', '意外保障', '医疗费用'], icon: '👶' },
+            { name: '高端母婴保险', price: 2980, coverage: ['全面保障', '私立医院', '海外就医', '专家会诊'], icon: '💎' }
+        ];
+
+        document.getElementById('plansGrid').innerHTML = plans.map(p => `
+            <div class="plan-card">
+                <div style="font-size: 4rem;">${p.icon}</div>
+                <h3 class="plan-name">${p.name}</h3>
+                <div class="plan-coverage">${p.coverage.map(c => `<div>✓ ${c}</div>`).join('')}</div>
+                <div class="plan-price">¥${p.price}/年</div>
+                <button class="btn btn-primary" onclick="alert('投保${p.name}')">立即投保</button>
+            </div>
+        `).join('');
+    </script>
+</body>
+</html>

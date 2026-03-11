@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>母婴用品特惠专场 - 婚育服务平台</title>
+    <meta name="description" content="精选母婴用品，新人专享优惠，满300减50，全场包邮">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .products-header {
+            background: linear-gradient(135deg, #ff9eb5 0%, #ffc4d6 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        .products-header h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .promo-tags {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .promo-tag {
+            background: rgba(255,255,255,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+        }
+        .filter-bar {
+            background: white;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .product-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff4757;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+        }
+        .product-info {
+            padding: 1rem;
+        }
+        .product-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .product-desc {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 0.75rem;
+        }
+        .product-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .price-current {
+            font-size: 1.5rem;
+            color: #ff4757;
+            font-weight: bold;
+        }
+        .price-original {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+        .product-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .btn-buy {
+            flex: 1;
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-buy:hover {
+            background: var(--primary-dark);
+        }
+        .btn-cart {
+            padding: 0.75rem 1rem;
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-cart:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        .merchant-info {
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .merchant-badge {
+            background: #ffd700;
+            color: #333;
+            padding: 0.1rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+        }
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .product-image {
+                height: 180px;
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-heart"></i> 婚育服务平台</h1>
+            <button onclick="window.history.back()" class="btn btn-secondary">返回首页</button>
+        </div>
+    </header>
+
+    <div class="products-header">
+        <h1>🍼 母婴用品特惠专场</h1>
+        <p>新人专享优惠 · 满300减50 · 全场包邮</p>
+        <div class="promo-tags">
+            <span class="promo-tag">🎁 新人礼包</span>
+            <span class="promo-tag">📦 全场包邮</span>
+            <span class="promo-tag">💰 满减优惠</span>
+            <span class="promo-tag">⚡ 极速发货</span>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <!-- 筛选栏 -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>商品分类</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">全部</button>
+                        <button class="filter-btn" data-category="milk">奶粉辅食</button>
+                        <button class="filter-btn" data-category="diaper">纸尿裤</button>
+                        <button class="filter-btn" data-category="clothes">婴儿服饰</button>
+                        <button class="filter-btn" data-category="toys">玩具用品</button>
+                        <button class="filter-btn" data-category="care">洗护用品</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>价格区间</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-price="all">不限</button>
+                        <button class="filter-btn" data-price="0-100">100元以下</button>
+                        <button class="filter-btn" data-price="100-300">100-300元</button>
+                        <button class="filter-btn" data-price="300-500">300-500元</button>
+                        <button class="filter-btn" data-price="500+">500元以上</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品列表 -->
+            <div class="products-grid" id="productsGrid">
+                <!-- 商品卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2024 婚育服务综合平台 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        // 模拟商品数据
+        const products = [
+            {
+                id: 1,
+                category: 'milk',
+                name: '进口婴儿奶粉 1段 800g',
+                desc: '适合0-6个月宝宝',
+                price: 298,
+                originalPrice: 398,
+                sales: 1520,
+                rating: 4.9,
+                badge: '热销',
+                icon: '🍼',
+                merchant: '母婴旗舰店',
+                merchantLevel: '金牌'
+            },
+            {
+                id: 2,
+                category: 'diaper',
+                name: '超薄透气纸尿裤 L码 120片',
+                desc: '柔软亲肤，瞬吸不回渗',
+                price: 168,
+                originalPrice: 228,
+                sales: 2340,
+                rating: 4.8,
+                badge: '爆款',
+                icon: '🧷',
+                merchant: '宝宝用品专营',
+                merchantLevel: '金牌'
+            },
+            {
+                id: 3,
+                category: 'clothes',
+                name: '纯棉婴儿连体衣 5件套',
+                desc: '新生儿礼盒装',
+                price: 199,
+                originalPrice: 299,
+                sales: 890,
+                rating: 4.9,
+                badge: '新品',
+                icon: '👶',
+                merchant: '童装专卖店',
+                merchantLevel: '银牌'
+            },
+            {
+                id: 4,
+                category: 'toys',
+                name: '早教益智玩具套装',
+                desc: '0-3岁启蒙玩具',
+                price: 158,
+                originalPrice: 258,
+                sales: 1120,
+                rating: 4.7,
+                badge: '推荐',
+                icon: '🧸',
+                merchant: '玩具总动员',
+                merchantLevel: '金牌'
+            },
+            {
+                id: 5,
+                category: 'care',
+                name: '婴儿洗护礼盒套装',
+                desc: '沐浴露+洗发水+润肤乳',
+                price: 128,
+                originalPrice: 198,
+                sales: 1680,
+                rating: 4.8,
+                badge: '热销',
+                icon: '🧴',
+                merchant: '洗护专营店',
+                merchantLevel: '金牌'
+            },
+            {
+                id: 6,
+                category: 'milk',
+                name: '有机米粉 6盒装',
+                desc: '无添加，营养丰富',
+                price: 88,
+                originalPrice: 128,
+                sales: 950,
+                rating: 4.9,
+                badge: '有机',
+                icon: '🥣',
+                merchant: '辅食专家',
+                merchantLevel: '银牌'
+            },
+            {
+                id: 7,
+                category: 'diaper',
+                name: '游泳纸尿裤 M码 30片',
+                desc: '防水透气，游泳必备',
+                price: 78,
+                originalPrice: 118,
+                sales: 560,
+                rating: 4.6,
+                badge: '夏季热销',
+                icon: '🏊',
+                merchant: '宝宝用品专营',
+                merchantLevel: '金牌'
+            },
+            {
+                id: 8,
+                category: 'toys',
+                name: '婴儿床铃音乐旋转玩具',
+                desc: '安抚哄睡神器',
+                price: 118,
+                originalPrice: 188,
+                sales: 780,
+                rating: 4.7,
+                badge: '推荐',
+                icon: '🎵',
+                merchant: '玩具总动员',
+                merchantLevel: '金牌'
+            }
+        ];
+
+        // 渲染商品列表
+        function renderProducts(filteredProducts = products) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" data-id="${product.id}">
+                    <div class="product-image">
+                        ${product.icon}
+                        <span class="product-badge">${product.badge}</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-desc">${product.desc}</p>
+                        <div class="product-price">
+                            <span class="price-current">¥${product.price}</span>
+                            <span class="price-original">¥${product.originalPrice}</span>
+                        </div>
+                        <div class="product-stats">
+                            <span>⭐ ${product.rating}分</span>
+                            <span>已售${product.sales}件</span>
+                        </div>
+                        <div class="merchant-info">
+                            <span class="merchant-badge">${product.merchantLevel}</span>
+                            <span>${product.merchant}</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-buy" onclick="buyProduct(${product.id})">立即购买</button>
+                            <button class="btn-cart" onclick="addToCart(${product.id})">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 筛选功能
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 更新按钮状态
+                this.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // 获取筛选条件
+                const category = document.querySelector('[data-category].active')?.dataset.category || 'all';
+                const priceRange = document.querySelector('[data-price].active')?.dataset.price || 'all';
+
+                // 筛选商品
+                let filtered = products;
+                
+                if (category !== 'all') {
+                    filtered = filtered.filter(p => p.category === category);
+                }
+
+                if (priceRange !== 'all') {
+                    if (priceRange === '500+') {
+                        filtered = filtered.filter(p => p.price >= 500);
+                    } else {
+                        const [min, max] = priceRange.split('-').map(Number);
+                        filtered = filtered.filter(p => p.price >= min && p.price < max);
+                    }
+                }
+
+                renderProducts(filtered);
+            });
+        });
+
+        // 购买功能
+        function buyProduct(id) {
+            const product = products.find(p => p.id === id);
+            alert(`即将购买：${product.name}\n价格：¥${product.price}\n\n提示：这是演示功能，实际需要对接支付系统`);
+        }
+
+        // 加入购物车
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            alert(`已加入购物车：${product.name}\n\n提示：这是演示功能，实际需要购物车系统`);
+        }
+
+        // 初始化
+        renderProducts();
+    </script>
+</body>
+</html>

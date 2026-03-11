@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 结构化数据 - Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "婚育服务平台",
+      "description": "全国婚育政策查询服务平台",
+      "applicationCategory": "GovernmentApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      }
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>婚育服务综合平台 - 全国婚育政策查询与服务</title>
+    
+    <!-- SEO优化 -->
+    <meta name="description" content="全国婚育服务平台 - 提供婚假、产假、育儿假、陪产假政策查询，生育津贴、育儿补贴申请指南，覆盖全国所有省市区县，一站式婚育服务解决方案">
+    <meta name="keywords" content="婚假,产假,育儿假,陪产假,生育津贴,育儿补贴,婚育政策,生育政策,婚姻登记,生育保险,婚育服务">
+    <meta name="author" content="婚育服务平台">
+    <link rel="canonical" href="https://yourdomain.com/">
+    
+    <!-- Open Graph标签 - 社交媒体优化 -->
+    <meta property="og:title" content="婚育服务平台 - 全国婚育政策查询">
+    <meta property="og:description" content="一站式婚育政策查询平台，覆盖全国所有省市区县，提供婚假产假政策、生育津贴申请、婚姻登记指南等服务">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:site_name" content="婚育服务平台">
+    
+    <!-- 资源提示 - 性能优化 -->
+    <link rel="dns-prefetch" href="https://map.qq.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/script.js" as="script">
+    
+    <!-- 安全性 - CSP（已放宽以支持腾讯地图） -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://map.qq.com https://apis.map.qq.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' data: https://cdnjs.cloudflare.com; connect-src 'self' https://apis.map.qq.com;"> -->
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/map-styles.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PWA配置 - 婚育服务通APP版 -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#E8636F">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="婚育服务通">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+</head>
+<body>
+    <!-- 跳过导航链接 - 无障碍优化 -->
+    <a href="#main-content" class="skip-link">跳到主内容</a>
+    
+    <!-- 加载动画 -->
+    <div id="loadingOverlay" class="loading-overlay" role="status" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>加载中...</p>
+    </div>
+
+    <!-- 通用提示弹窗 -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- 全局搜索 -->
+    <div id="searchModal" class="modal" role="dialog" aria-labelledby="searchModalTitle" aria-modal="true">
+        <div class="modal-content search-modal-content">
+            <span class="close" aria-label="关闭搜索">&times;</span>
+            <h3 id="searchModalTitle"><i class="fas fa-search" aria-hidden="true"></i> 全局搜索</h3>
+            <div class="search-box" role="search">
+                <input type="text" id="globalSearchInput" class="input" placeholder="搜索政策、机构、问题..." autofocus aria-label="搜索输入框">
+                <button id="clearSearchBtn" class="btn-icon" style="display: none;" aria-label="清除搜索"><i class="fas fa-times" aria-hidden="true"></i></button>
+            </div>
+            <div class="search-tabs">
+                <button class="search-tab active" data-type="all">全部</button>
+                <button class="search-tab" data-type="policy">政策</button>
+                <button class="search-tab" data-type="service">机构</button>
+                <button class="search-tab" data-type="faq">问题</button>
+            </div>
+            <div id="searchHistory" class="search-history">
+                <div class="history-header">
+                    <span><i class="fas fa-history"></i> 搜索历史</span>
+                    <button id="clearHistoryBtn" class="btn-text">清空</button>
+                </div>
+                <div id="historyList" class="history-list"></div>
+            </div>
+            <div id="searchResults" class="search-results"></div>
+            <div id="hotSearches" class="hot-searches">
+                <h4><i class="fas fa-fire"></i> 热门搜索</h4>
+                <div class="hot-tags">
+                    <span class="hot-tag">生育补贴</span>
+                    <span class="hot-tag">婚假政策</span>
+                    <span class="hot-tag">产检费用</span>
+                    <span class="hot-tag">月子中心</span>
+                    <span class="hot-tag">婚姻登记</span>
+                    <span class="hot-tag">保险报销</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 政策对比 -->
+    <div id="compareModal" class="modal">
+        <div class="modal-content compare-modal-content">
+            <span class="close">&times;</span>
+            <h3><i class="fas fa-balance-scale"></i> 政策对比</h3>
+            <div class="compare-selector">
+                <div class="compare-item">
+                    <h4>地区A</h4>
+                    <select id="compareProvinceA" class="select-input">
+                        <option value="">选择省份</option>
+                    </select>
+                    <select id="compareCityA" class="select-input" disabled>
+                        <option value="">选择城市</option>
+                    </select>
+                    <select id="compareCountyA" class="select-input" disabled>
+                        <option value="">选择区县</option>
+                    </select>
+                </div>
+                <div class="compare-vs">VS</div>
+                <div class="compare-item">
+                    <h4>地区B</h4>
+                    <select id="compareProvinceB" class="select-input">
+                        <option value="">选择省份</option>
+                    </select>
+                    <select id="compareCityB" class="select-input" disabled>
+                        <option value="">选择城市</option>
+                    </select>
+                    <select id="compareCountyB" class="select-input" disabled>
+                        <option value="">选择区县</option>
+                    </select>
+                </div>
+            </div>
+            <button id="startCompareBtn" class="btn btn-primary">开始对比</button>
+            <div id="compareResults" class="compare-results"></div>
+        </div>
+    </div>
+
+    <!-- FAQ常见问题 -->
+    <div id="faqModal" class="modal">
+        <div class="modal-content faq-modal-content">
+            <span class="close">&times;</span>
+            <h3><i class="fas fa-question-circle"></i> 常见问题</h3>
+            <div class="faq-search">
+                <input type="text" id="faqSearchInput" class="input" placeholder="搜索问题...">
+            </div>
+            <div class="faq-categories">
+                <button class="faq-cat-btn active" data-cat="all">全部</button>
+                <button class="faq-cat-btn" data-cat="policy">政策相关</button>
+                <button class="faq-cat-btn" data-cat="procedure">办理流程</button>
+                <button class="faq-cat-btn" data-cat="insurance">保险报销</button>
+                <button class="faq-cat-btn" data-cat="other">其他</button>
+            </div>
+            <div id="faqList" class="faq-list"></div>
+        </div>
+    </div>
+
+    <!-- 登录/注册入口 -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="authTitle">用户登录</h3>
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> 手机号</label>
+                <input type="tel" id="authPhone" class="input" placeholder="请输入手机号" maxlength="11">
+                <span class="error-msg" id="phoneError"></span>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> 验证码</label>
+                <div class="input-group">
+                    <input type="text" id="authCode" class="input" placeholder="请输入验证码" maxlength="6">
+                    <button id="sendCodeBtn" class="btn btn-secondary">发送验证码</button>
+                </div>
+                <span class="error-msg" id="codeError"></span>
+            </div>
+            <button id="authSubmitBtn" class="btn btn-primary">登录</button>
+            <p class="auth-switch">还没有账号？<a href="#" id="switchToRegister">立即注册</a></p>
+        </div>
+    </div>
+
+    <!-- 顶部导航 -->
+    <header class="header" role="banner">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-heart" aria-hidden="true"></i> 婚育服务平台</h1>
+            <div class="header-right">
+                <button id="searchBtn" class="icon-btn" title="搜索" aria-label="打开搜索"><i class="fas fa-search" aria-hidden="true"></i></button>
+                <button id="userBtn" class="user-btn" aria-label="用户登录"><i class="fas fa-user" aria-hidden="true"></i> 登录</button>
+            </div>
+            <nav class="nav" role="navigation" aria-label="主导航">
+                <button class="nav-btn active" data-section="married"><i class="fas fa-baby"></i> 已婚人群专区</button>
+                <button class="nav-btn" data-section="single"><i class="fas fa-heart"></i> 未婚人群专区</button>
+                <button class="nav-btn" data-section="registration"><i class="fas fa-ring"></i> 婚姻登记指南</button>
+                <button class="nav-btn" data-section="map"><i class="fas fa-hospital"></i> 服务机构地图</button>
+                <button class="nav-btn" data-section="insurance"><i class="fas fa-shield-alt"></i> 生育保险报销</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main" id="main-content" role="main">
+        <!-- 右侧悬浮广告 -->
+        <div class="ad-sidebar ad-container" id="sidebarAd">
+            <span class="ad-label">广告</span>
+            <button class="ad-close-btn" onclick="closeSidebarAd()" aria-label="关闭广告"><i class="fas fa-times" aria-hidden="true"></i></button>
+            <a href="ads/maternity-center.html" class="ad-mock" target="_blank">
+                <div class="ad-mock-icon">💝</div>
+                <div class="ad-mock-title">高端月子中心</div>
+                <div class="ad-mock-desc">专业护理 · 营养膳食</div>
+            </a>
+        </div>
+
+        <!-- 已婚人群专区 -->
+        <section id="married" class="section active">
+            <div class="container">
+                <!-- 面包屑导航 -->
+                <nav class="breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="#"><i class="fas fa-home"></i> 首页</a>
+                    </div>
+                    <span class="breadcrumb-separator">/</span>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">已婚人群专区</span>
+                    </div>
+                </nav>
+
+                <!-- 顶部横幅广告 -->
+                <div class="ad-banner ad-container">
+                    <span class="ad-label">广告</span>
+                    <a href="ads/maternity-products.html" class="ad-mock" target="_blank">
+                        <div class="ad-mock-icon">🍼</div>
+                        <div class="ad-mock-title">母婴用品特惠专场</div>
+                        <div class="ad-mock-desc">新人专享 · 满300减50 · 全场包邮</div>
+                    </a>
+                </div>
+
+                <h2 class="section-title">已婚人群专区</h2>
+
+                <!-- Hero横幅 -->
+                <div class="section-hero">
+                    <div class="section-hero-text">
+                        <h2>婚育政策一键查询</h2>
+                        <p>覆盖全国所有省市区县，2025年最新政策实时更新，婚假、产假、育儿补贴一站掌握</p>
+                    </div>
+                    <i class="fas fa-baby section-hero-icon" aria-hidden="true"></i>
+                </div>
+
+                <!-- 数据亮点 -->
+                <div class="stats-highlights">
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">31</div>
+                        <div class="stat-highlight-label">省级行政区</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">334</div>
+                        <div class="stat-highlight-label">地级市覆盖</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">2025</div>
+                        <div class="stat-highlight-label">最新政策年份</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">实时</div>
+                        <div class="stat-highlight-label">政策更新</div>
+                    </div>
+                </div>
+
+                <!-- 快捷功能入口 -->
+                <div class="quick-entries">
+                    <div class="quick-entry" onclick="document.getElementById('compareBtn').click()">
+                        <div class="quick-entry-icon"><i class="fas fa-balance-scale"></i></div>
+                        <span>政策对比</span>
+                    </div>
+                    <div class="quick-entry" onclick="document.querySelector('[data-section=insurance]').click()">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, #F5A623, #e8941a);"><i class="fas fa-calculator"></i></div>
+                        <span>报销计算</span>
+                    </div>
+                    <div class="quick-entry" onclick="document.querySelector('[data-section=map]').click()">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));"><i class="fas fa-map-marked-alt"></i></div>
+                        <span>机构地图</span>
+                    </div>
+                    <div class="quick-entry" onclick="document.getElementById('faqBtn').click()">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, var(--success), #2aa34a);"><i class="fas fa-question-circle"></i></div>
+                        <span>常见问题</span>
+                    </div>
+                </div>
+                
+                <!-- 地区选择 -->
+                <div class="location-selector">
+                    <div class="location-selector-header">
+                        <h4><i class="fas fa-search-location"></i> 选择您的地区，查看专属婚育政策</h4>
+                    </div>
+                    <select id="province" class="select-input" aria-label="选择省份">
+                        <option value="">请选择省份</option>
+                    </select>
+                    <select id="city" class="select-input" aria-label="选择城市">
+                        <option value="">请选择城市</option>
+                    </select>
+                    <select id="county" class="select-input" aria-label="选择区县">
+                        <option value="">请选择区县</option>
+                    </select>
+                    <button id="queryPolicy" class="btn btn-primary" aria-label="查询政策">查询政策</button>
+                </div>
+
+                <!-- 政策展示卡片 -->
+                <div id="policyCards" class="policy-cards" role="region" aria-label="政策查询结果" aria-live="polite">
+                    <!-- 动态生成卡片 -->
+                </div>
+
+                <!-- 申领进度查询 -->
+                <div class="progress-query">
+                    <h4><i class="fas fa-tasks"></i> 补贴申领进度查询</h4>
+                    <p class="progress-query-desc">输入您的申请编号，实时追踪补贴审批进度</p>
+                    <div class="form-group">
+                        <label>申请编号</label>
+                        <div class="input-group">
+                            <input type="text" id="progressQueryId" class="input" placeholder="请输入申请编号">
+                            <button class="btn btn-primary" onclick="queryProgress()">查询进度</button>
+                        </div>
+                    </div>
+                    <div id="progressResult" style="display: none;">
+                        <div class="progress-steps">
+                            <div class="progress-step completed">
+                                <div class="progress-step-icon"><i class="fas fa-check"></i></div>
+                                <div class="progress-step-label">提交申请</div>
+                            </div>
+                            <div class="progress-step completed">
+                                <div class="progress-step-icon"><i class="fas fa-check"></i></div>
+                                <div class="progress-step-label">材料审核</div>
+                            </div>
+                            <div class="progress-step active">
+                                <div class="progress-step-icon"><i class="fas fa-spinner fa-spin"></i></div>
+                                <div class="progress-step-label">财政审批</div>
+                            </div>
+                            <div class="progress-step">
+                                <div class="progress-step-icon"><i class="fas fa-clock"></i></div>
+                                <div class="progress-step-label">发放补贴</div>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                            预计3-5个工作日完成审批
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 热门政策速览 -->
+                <div class="hot-policy-preview">
+                    <h4><i class="fas fa-fire"></i> 热门政策速览</h4>
+                    <div class="hot-policy-grid">
+                        <div class="hot-policy-item" onclick="document.getElementById('province').value='北京市';document.getElementById('province').dispatchEvent(new Event('change'));">
+                            <div class="hot-policy-tag">北京</div>
+                            <div class="hot-policy-text">婚假10天 · 产假158天 · 育儿假各5天</div>
+                        </div>
+                        <div class="hot-policy-item" onclick="document.getElementById('province').value='上海市';document.getElementById('province').dispatchEvent(new Event('change'));">
+                            <div class="hot-policy-tag">上海</div>
+                            <div class="hot-policy-text">婚假10天 · 产假158天 · 育儿假各5天</div>
+                        </div>
+                        <div class="hot-policy-item" onclick="document.getElementById('province').value='广东省';document.getElementById('province').dispatchEvent(new Event('change'));">
+                            <div class="hot-policy-tag">广东</div>
+                            <div class="hot-policy-text">婚假3天 · 产假178天 · 育儿假各10天</div>
+                        </div>
+                        <div class="hot-policy-item" onclick="document.getElementById('province').value='浙江省';document.getElementById('province').dispatchEvent(new Event('change'));">
+                            <div class="hot-policy-tag">浙江</div>
+                            <div class="hot-policy-text">婚假3天 · 产假158天 · 育儿假各10天</div>
+                        </div>
+                        <div class="hot-policy-item" onclick="document.getElementById('province').value='四川省';document.getElementById('province').dispatchEvent(new Event('change'));">
+                            <div class="hot-policy-tag">四川</div>
+                            <div class="hot-policy-text">婚假3天 · 产假158天 · 育儿假各10天</div>
+                        </div>
+                        <div class="hot-policy-item" onclick="document.getElementById('province').value='江苏省';document.getElementById('province').dispatchEvent(new Event('change'));">
+                            <div class="hot-policy-tag">江苏</div>
+                            <div class="hot-policy-text">婚假15天 · 产假158天 · 育儿假各10天</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 平台特色 -->
+                <div class="platform-features">
+                    <div class="platform-feature">
+                        <div class="platform-feature-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h5>权威数据</h5>
+                        <p>政策数据来源于各省市官方文件</p>
+                    </div>
+                    <div class="platform-feature">
+                        <div class="platform-feature-icon"><i class="fas fa-sync-alt"></i></div>
+                        <h5>实时更新</h5>
+                        <p>政策变动第一时间同步更新</p>
+                    </div>
+                    <div class="platform-feature">
+                        <div class="platform-feature-icon"><i class="fas fa-map-marked-alt"></i></div>
+                        <h5>精准定位</h5>
+                        <p>精确到区县级别的政策查询</p>
+                    </div>
+                    <div class="platform-feature">
+                        <div class="platform-feature-icon"><i class="fas fa-headset"></i></div>
+                        <h5>专业客服</h5>
+                        <p>一对一解答您的婚育政策疑问</p>
+                    </div>
+                </div>
+
+                <!-- 个人中心 - 收藏的政策 -->
+                <div id="savedPolicies" class="saved-section" style="display: none;">
+                    <h3><i class="fas fa-star"></i> 我收藏的政策</h3>
+                    <div id="savedPoliciesList"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 未婚人群专区 -->
+        <section id="single" class="section">
+            <div class="container">
+                <!-- 面包屑导航 -->
+                <nav class="breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="#"><i class="fas fa-home"></i> 首页</a>
+                    </div>
+                    <span class="breadcrumb-separator">/</span>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">未婚人群专区</span>
+                    </div>
+                </nav>
+
+                <!-- 顶部横幅广告 -->
+                <div class="ad-banner ad-container">
+                    <span class="ad-label">广告</span>
+                    <a href="#" class="ad-mock" target="_blank">
+                        <div class="ad-mock-icon">💑</div>
+                        <div class="ad-mock-title">高端婚恋服务</div>
+                        <div class="ad-mock-desc">实名认证 · 专业红娘 · 成功率高</div>
+                    </a>
+                </div>
+
+                <h2 class="section-title">未婚人群专区</h2>
+
+                <!-- Hero横幅 -->
+                <div class="section-hero" style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 60%, #1a2f5e 100%);">
+                    <div class="section-hero-text">
+                        <h2>智能婚恋匹配</h2>
+                        <p>基于户籍、职业、性格多维度精准匹配，实名认证保障安全，找到志同道合的另一半</p>
+                    </div>
+                    <i class="fas fa-heart section-hero-icon" aria-hidden="true"></i>
+                </div>
+
+                <!-- 服务亮点 -->
+                <div class="stats-highlights">
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">100%</div>
+                        <div class="stat-highlight-label">实名认证</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">AI</div>
+                        <div class="stat-highlight-label">智能匹配</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">隐私</div>
+                        <div class="stat-highlight-label">安全保障</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">免费</div>
+                        <div class="stat-highlight-label">基础服务</div>
+                    </div>
+                </div>
+                
+                <div class="matching-form">
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> 户籍/常住地</label>
+                        <input type="text" id="singleLocation" class="input" placeholder="请输入户籍或常住地">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-building"></i> 工作单位</label>
+                        <input type="text" id="workplace" class="input" placeholder="请输入工作单位">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-smile"></i> 性格特点</label>
+                        <input type="text" id="personality" class="input" placeholder="例如：开朗、稳重">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-wallet"></i> 经济条件</label>
+                        <select id="economic" class="select-input">
+                            <option value="">请选择</option>
+                            <option value="low">一般</option>
+                            <option value="medium">中等</option>
+                            <option value="high">良好</option>
+                            <option value="veryHigh">优秀</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-heart"></i> 择偶偏好</label>
+                        <textarea id="preference" class="textarea" placeholder="请描述您的择偶偏好"></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button id="aiMatch" class="btn btn-primary"><i class="fas fa-robot"></i> AI智能匹配</button>
+                        <button id="manualMatch" class="btn btn-secondary"><i class="fas fa-search"></i> 自主匹配</button>
+                    </div>
+                </div>
+
+                <!-- 匹配结果 -->
+                <div id="matchResults" class="match-results">
+                    <!-- 动态生成匹配结果 -->
+                </div>
+
+                <!-- 获取联系方式弹窗 -->
+                <div id="contactModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h3><i class="fas fa-shield-alt"></i> 获取联系方式</h3>
+                        <p class="warning"><i class="fas fa-exclamation-triangle"></i> 为保护用户隐私，请如实填写以下信息</p>
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> 实名认证</label>
+                            <input type="text" id="realName" class="input" placeholder="请输入真实姓名">
+                            <span class="error-msg" id="nameError"></span>
+                            <input type="text" id="idCard" class="input" placeholder="请输入身份证号" maxlength="18">
+                            <span class="error-msg" id="idCardError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> 何时何地</label>
+                            <input type="text" id="whenWhere" class="input" placeholder="例如：2024年1月在北京朝阳区">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-comment"></i> 获取原因</label>
+                            <textarea id="reason" class="textarea" placeholder="请详细说明获取联系方式的原因"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="privacyAgree">
+                                我已阅读并同意<a href="#" class="link">《隐私协议》</a>和<a href="#" class="link">《用户服务协议》</a>
+                            </label>
+                        </div>
+                        <button id="faceVerifyBtn" class="btn btn-secondary"><i class="fas fa-camera"></i> 人脸识别验证</button>
+                        <button id="submitContact" class="btn btn-primary" disabled>提交验证</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 婚姻登记指南 -->
+        <section id="registration" class="section">
+            <div class="container">
+                <!-- 面包屑导航 -->
+                <nav class="breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="#"><i class="fas fa-home"></i> 首页</a>
+                    </div>
+                    <span class="breadcrumb-separator">/</span>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">婚姻登记指南</span>
+                    </div>
+                </nav>
+
+                <!-- 顶部横幅广告 -->
+                <div class="ad-banner ad-container">
+                    <span class="ad-label">广告</span>
+                    <a href="ads/wedding-photography.html" class="ad-mock" target="_blank">
+                        <div class="ad-mock-icon">💍</div>
+                        <div class="ad-mock-title">婚纱摄影特惠</div>
+                        <div class="ad-mock-desc">领证送婚纱照 · 限时优惠</div>
+                    </a>
+                </div>
+
+                <h2 class="section-title">婚姻登记指南</h2>
+
+                <!-- Hero横幅 -->
+                <div class="section-hero" style="background: linear-gradient(135deg, #E8636F 0%, #C94D58 50%, #a83848 100%);">
+                    <div class="section-hero-text">
+                        <h2>婚姻登记全流程指南</h2>
+                        <p>查找附近登记处、了解所需材料、预约办理时间，让领证之路更顺畅</p>
+                    </div>
+                    <i class="fas fa-ring section-hero-icon" aria-hidden="true"></i>
+                </div>
+
+                <!-- 办理流程步骤 -->
+                <div class="step-guide">
+                    <div class="step-guide-item">
+                        <div class="step-guide-number">1</div>
+                        <div class="step-guide-content">
+                            <h5>准备材料</h5>
+                            <p>双方身份证、户口本、照片</p>
+                        </div>
+                    </div>
+                    <div class="step-guide-arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="step-guide-item">
+                        <div class="step-guide-number">2</div>
+                        <div class="step-guide-content">
+                            <h5>在线预约</h5>
+                            <p>选择登记处和办理时间</p>
+                        </div>
+                    </div>
+                    <div class="step-guide-arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="step-guide-item">
+                        <div class="step-guide-number">3</div>
+                        <div class="step-guide-content">
+                            <h5>现场办理</h5>
+                            <p>携带材料前往登记处</p>
+                        </div>
+                    </div>
+                    <div class="step-guide-arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="step-guide-item">
+                        <div class="step-guide-number">4</div>
+                        <div class="step-guide-content">
+                            <h5>领取证书</h5>
+                            <p>当场领取结婚证</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="registration-form">
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> 户籍/常住地</label>
+                        <input type="text" id="regLocation" class="input" placeholder="请输入户籍或常住地">
+                    </div>
+                    <button id="searchRegistry" class="btn btn-primary"><i class="fas fa-search"></i> 查找登记处</button>
+                </div>
+
+                <!-- 地图容器 - 高德地图 -->
+                <div id="registryMap" class="map-container">
+                    <p class="map-placeholder">请输入地址后查看地图</p>
+                </div>
+
+                <!-- 登记信息 -->
+                <div id="registryInfo" class="registry-info">
+                    <!-- 动态生成登记信息 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 本地婚育服务机构地图 -->
+        <section id="map" class="section">
+            <div class="container">
+                <!-- 面包屑导航 -->
+                <nav class="breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="#"><i class="fas fa-home"></i> 首页</a>
+                    </div>
+                    <span class="breadcrumb-separator">/</span>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">服务机构地图</span>
+                    </div>
+                </nav>
+
+                <!-- 顶部横幅广告 -->
+                <div class="ad-banner ad-container">
+                    <span class="ad-label">广告</span>
+                    <a href="ads/hospital-checkup.html" class="ad-mock" target="_blank">
+                        <div class="ad-mock-icon">🏥</div>
+                        <div class="ad-mock-title">三甲医院产检套餐</div>
+                        <div class="ad-mock-desc">专家团队 · 全程跟踪 · 安心孕育</div>
+                    </a>
+                </div>
+
+                <h2 class="section-title">本地婚育服务机构地图</h2>
+
+                <!-- Hero横幅 -->
+                <div class="section-hero" style="background: linear-gradient(135deg, #3B5998 0%, #2D4373 60%, #1e2f52 100%);">
+                    <div class="section-hero-text">
+                        <h2>附近婚育服务机构</h2>
+                        <p>妇幼保健院、月子中心、早教机构一图呈现，查看评分、预约、导航一步到位</p>
+                    </div>
+                    <i class="fas fa-hospital section-hero-icon" aria-hidden="true"></i>
+                </div>
+
+                <!-- 机构类型快捷入口 -->
+                <div class="quick-entries">
+                    <div class="quick-entry" onclick="document.getElementById('serviceType').value='hospital';document.getElementById('searchService').click();">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, #E8636F, #C94D58);"><i class="fas fa-hospital"></i></div>
+                        <span>妇幼保健院</span>
+                    </div>
+                    <div class="quick-entry" onclick="document.getElementById('serviceType').value='checkup';document.getElementById('searchService').click();">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));"><i class="fas fa-stethoscope"></i></div>
+                        <span>婚检中心</span>
+                    </div>
+                    <div class="quick-entry" onclick="document.getElementById('serviceType').value='maternity';document.getElementById('searchService').click();">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, #F5A623, #e8941a);"><i class="fas fa-baby-carriage"></i></div>
+                        <span>月子中心</span>
+                    </div>
+                    <div class="quick-entry" onclick="document.getElementById('serviceType').value='education';document.getElementById('searchService').click();">
+                        <div class="quick-entry-icon" style="background: linear-gradient(135deg, var(--success), #2aa34a);"><i class="fas fa-graduation-cap"></i></div>
+                        <span>早教机构</span>
+                    </div>
+                </div>
+                
+                <div class="service-form">
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> 户籍/常住地</label>
+                        <input type="text" id="serviceLocation" class="input" placeholder="请输入户籍或常住地">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-filter"></i> 机构类型</label>
+                        <select id="serviceType" class="select-input">
+                            <option value="">全部类型</option>
+                            <option value="hospital">妇幼保健院</option>
+                            <option value="checkup">婚检中心</option>
+                            <option value="maternity">月子中心</option>
+                            <option value="education">早教机构</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-sort"></i> 排序方式</label>
+                        <select id="sortType" class="select-input">
+                            <option value="distance">距离优先</option>
+                            <option value="rating">评分优先</option>
+                            <option value="price">价格优先</option>
+                        </select>
+                    </div>
+                    <button id="searchService" class="btn btn-primary"><i class="fas fa-search"></i> 查找服务机构</button>
+                </div>
+
+                <!-- 地图容器 -->
+                <div id="serviceMap" class="map-container">
+                    <p class="map-placeholder">地图将在此显示</p>
+                </div>
+
+                <!-- 机构详情 -->
+                <div id="serviceDetail" class="service-detail">
+                    <!-- 动态生成机构详情 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 生育保险报销模拟 -->
+        <section id="insurance" class="section">
+            <div class="container">
+                <!-- 面包屑导航 -->
+                <nav class="breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="#"><i class="fas fa-home"></i> 首页</a>
+                    </div>
+                    <span class="breadcrumb-separator">/</span>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">生育保险报销</span>
+                    </div>
+                </nav>
+
+                <!-- 顶部横幅广告 -->
+                <div class="ad-banner ad-container">
+                    <span class="ad-label">广告</span>
+                    <a href="ads/insurance.html" class="ad-mock" target="_blank">
+                        <div class="ad-mock-icon">🛡️</div>
+                        <div class="ad-mock-title">母婴保险特惠</div>
+                        <div class="ad-mock-desc">全面保障 · 快速理赔 · 安心无忧</div>
+                    </a>
+                </div>
+
+                <h2 class="section-title">生育保险报销模拟</h2>
+
+                <!-- Hero横幅 -->
+                <div class="section-hero" style="background: linear-gradient(135deg, #F5A623 0%, #e8941a 50%, #c97d10 100%);">
+                    <div class="section-hero-text">
+                        <h2>生育保险报销计算器</h2>
+                        <p>输入实际费用，秒算报销金额，了解各险种报销比例，提前规划生育支出</p>
+                    </div>
+                    <i class="fas fa-shield-alt section-hero-icon" aria-hidden="true"></i>
+                </div>
+
+                <!-- 报销亮点 -->
+                <div class="stats-highlights">
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">70%+</div>
+                        <div class="stat-highlight-label">平均报销比例</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">秒算</div>
+                        <div class="stat-highlight-label">报销金额</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">多家</div>
+                        <div class="stat-highlight-label">保险公司</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <div class="stat-highlight-number">全面</div>
+                        <div class="stat-highlight-label">费用覆盖</div>
+                    </div>
+                </div>
+                
+                <div class="insurance-form">
+                    <!-- 费用参考值 -->
+                    <div class="cost-reference">
+                        <h5><i class="fas fa-info-circle"></i> 费用参考值（仅供参考）</h5>
+                        <div class="cost-reference-list">
+                            <div class="cost-reference-item">
+                                <span>产检费用</span>
+                                <span>3000-5000元</span>
+                            </div>
+                            <div class="cost-reference-item">
+                                <span>顺产费用</span>
+                                <span>5000-8000元</span>
+                            </div>
+                            <div class="cost-reference-item">
+                                <span>剖腹产费用</span>
+                                <span>8000-15000元</span>
+                            </div>
+                            <div class="cost-reference-item">
+                                <span>住院费用</span>
+                                <span>2000-5000元</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>保险公司</label>
+                        <select id="insuranceCompany" class="select-input">
+                            <option value="">请选择保险公司</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>保险类型</label>
+                        <select id="insuranceType" class="select-input">
+                            <option value="">请选择保险类型</option>
+                        </select>
+                    </div>
+                    <button id="viewRequirements" class="btn btn-secondary">查看报销要求</button>
+
+                    <div id="requirementsDisplay" class="requirements-display">
+                        <!-- 动态显示报销要求 -->
+                    </div>
+
+                    <h3 class="subsection-title">费用计算</h3>
+                    <div class="form-group">
+                        <label>产检费用（元）</label>
+                        <input type="number" id="checkupCost" class="input" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>住院费用（元）</label>
+                        <input type="number" id="hospitalCost" class="input" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>手术费用（元）</label>
+                        <input type="number" id="surgeryCost" class="input" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>其他费用（元）</label>
+                        <input type="number" id="otherCost" class="input" placeholder="0">
+                    </div>
+                    <button id="calculateReimbursement" class="btn btn-primary">计算报销金额</button>
+
+                    <div id="reimbursementResult" class="reimbursement-result">
+                        <!-- 动态显示计算结果 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 快捷工具栏 -->
+    <div class="quick-tools" role="complementary" aria-label="快捷工具">
+        <button id="compareBtn" class="tool-btn" title="政策对比" aria-label="打开政策对比">
+            <i class="fas fa-balance-scale" aria-hidden="true"></i>
+            <span>对比</span>
+        </button>
+        <button id="faqBtn" class="tool-btn" title="常见问题答疑" aria-label="打开常见问题答疑">
+            <i class="fas fa-question-circle" aria-hidden="true"></i>
+            <span>常见问题</span>
+        </button>
+        <button id="csBtn" class="tool-btn" title="客服" aria-label="打开客服">
+            <i class="fas fa-comments" aria-hidden="true"></i>
+            <span>客服</span>
+        </button>
+        <button id="dashboardBtn" class="tool-btn" title="数据看板" aria-label="打开数据看板" onclick="if(window.dashboard){window.dashboard.show()}else{alert('数据系统正在加载，请稍后再试')}">
+            <i class="fas fa-chart-line" aria-hidden="true"></i>
+            <span>数据</span>
+        </button>
+        <button id="backToTop" class="tool-btn" title="返回顶部" aria-label="返回顶部" style="display:none;">
+            <i class="fas fa-arrow-up" aria-hidden="true"></i>
+            <span>顶部</span>
+        </button>
+    </div>
+
+    <!-- 客服菜单 -->
+    <div id="csMenu" class="cs-menu-popup">
+        <div class="cs-menu-header">
+            <h4><i class="fas fa-headset"></i> 客服中心</h4>
+            <button class="close-cs"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cs-menu-body">
+            <a href="tel:400-XXX-XXXX" class="cs-item"><i class="fas fa-phone"></i> 电话咨询<span>400-XXX-XXXX</span></a>
+            <a href="#" class="cs-item"><i class="fas fa-comment-dots"></i> 在线客服<span>9:00-18:00</span></a>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <!-- 广告合作 -->
+            <div class="ad-cooperation">
+                <h4><i class="fas fa-handshake"></i> 广告合作</h4>
+                <p>精准触达婚育人群，共创美好未来</p>
+                <div class="ad-cooperation-contacts">
+                    <div class="ad-cooperation-item">
+                        <i class="fas fa-phone"></i>
+                        <span>商务热线：400-XXX-XXXX</span>
+                    </div>
+                    <div class="ad-cooperation-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>合作邮箱：ad@example.com</span>
+                    </div>
+                    <div class="ad-cooperation-item">
+                        <i class="fab fa-weixin"></i>
+                        <span>微信：MarriageAd2024</span>
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 1rem;" onclick="window.open('ads/merchant-join.html', '_blank')">
+                    商家入驻
+                </button>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>关于我们</h4>
+                    <p>专业的婚育服务综合平台</p>
+                </div>
+                <div class="footer-section">
+                    <h4>联系方式</h4>
+                    <p><i class="fas fa-phone"></i> 服务热线：400-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> 邮箱：service@example.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>关注我们</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                    </div>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2025 婚育服务综合平台 版权所有</p>
+        </div>
+    </footer>
+
+    <!-- 腾讯地图API - 必须最先加载 -->
+    <!-- 重要：请到腾讯地图开放平台(https://lbs.qq.com)申请自己的Key，并设置域名白名单 -->
+    <script src="https://map.qq.com/api/gljs?v=1.exp&key=YOUR_TENCENT_MAP_KEY"></script>
+    
+    <!-- 城市坐标数据库 -->
+    <script src="js/city-coords.js"></script>
+    
+    <!-- 全国区县坐标数据库 -->
+    <script src="js/all-districts.js"></script>
+    
+    <!-- 政策数据 -->
+    <script src="js/policy-data-2025.js"></script>
+    <script src="js/policy-data-extended.js"></script>
+    <script src="js/policy-helper.js"></script>
+    
+    <!-- 腾讯地图模块 -->
+    <script src="js/tencent-map.js"></script>
+    
+    <!-- 无障碍和用户体验增强 -->
+    <script src="js/accessibility.js"></script>
+    
+    <!-- 用户系统 -->
+    <script src="js/user-system.js"></script>
+    
+    <!-- 数据统计分析 -->
+    <script src="js/analytics.js"></script>
+    
+    <!-- 主脚本 -->
+    <script src="js/script.js"></script>
+    
+    <!-- PWA安装功能 - 婚育服务通APP版 -->
+    <script src="js/pwa-install.js"></script>
+    
+    <!-- 用户体验增强 -->
+    <script src="js/ux-enhancements.js"></script>
+</body>
+</html>

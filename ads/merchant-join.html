@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商家入驻 - 婚育服务平台</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .benefit-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .pricing-table {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 3rem 0;
+        }
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .pricing-row:first-child {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        .contact-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 3rem 1rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .contact-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            min-width: 200px;
+        }
+        @media (max-width: 768px) {
+            .pricing-row {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-heart"></i> 婚育服务平台</h1>
+            <button onclick="window.history.back()" class="btn btn-secondary">返回首页</button>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>🤝 商家入驻</h1>
+        <p>精准触达婚育人群 · 共创美好未来</p>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <h2 style="text-align: center; margin: 3rem 0 2rem;">为什么选择我们？</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">👥</div>
+                    <h3 class="benefit-title">精准用户</h3>
+                    <p>100%婚育人群，转化率高</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3 class="benefit-title">数据分析</h3>
+                    <p>实时查看广告效果数据</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3 class="benefit-title">灵活计费</h3>
+                    <p>按点击/展示/成交计费</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">精准投放</h3>
+                    <p>按地区、年龄、需求投放</p>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; margin: 3rem 0 2rem;">广告位价格</h2>
+            
+            <div class="pricing-table">
+                <div class="pricing-row">
+                    <div>广告位置</div>
+                    <div>展示位置</div>
+                    <div>价格</div>
+                    <div>计费方式</div>
+                </div>
+                <div class="pricing-row">
+                    <div>首页横幅广告</div>
+                    <div>首页顶部</div>
+                    <div>¥5000/月</div>
+                    <div>包月</div>
+                </div>
+                <div class="pricing-row">
+                    <div>专区横幅广告</div>
+                    <div>各专区顶部</div>
+                    <div>¥3000/月</div>
+                    <div>包月</div>
+                </div>
+                <div class="pricing-row">
+                    <div>侧边悬浮广告</div>
+                    <div>页面右侧</div>
+                    <div>¥2000/月</div>
+                    <div>包月</div>
+                </div>
+                <div class="pricing-row">
+                    <div>信息流广告</div>
+                    <div>内容中穿插</div>
+                    <div>¥0.5/点击</div>
+                    <div>按点击</div>
+                </div>
+                <div class="pricing-row">
+                    <div>商品展示页</div>
+                    <div>独立落地页</div>
+                    <div>¥1000/月</div>
+                    <div>包月</div>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; margin: 3rem 0 2rem;">入驻流程</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">1️⃣</div>
+                    <h3 class="benefit-title">提交申请</h3>
+                    <p>填写商家信息和资质</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">2️⃣</div>
+                    <h3 class="benefit-title">审核资质</h3>
+                    <p>1-3个工作日审核</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">3️⃣</div>
+                    <h3 class="benefit-title">签订合同</h3>
+                    <p>线上/线下签约</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">4️⃣</div>
+                    <h3 class="benefit-title">上线推广</h3>
+                    <p>开始展示和推广</p>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <h2>联系我们</h2>
+                <p>专业团队为您服务，期待与您合作</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📞</div>
+                        <div><strong>商务热线</strong></div>
+                        <div>400-XXX-XXXX</div>
+                    </div>
+                    <div class="contact-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📧</div>
+                        <div><strong>合作邮箱</strong></div>
+                        <div>ad@example.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💬</div>
+                        <div><strong>微信咨询</strong></div>
+                        <div>MarriageAd2024</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 2rem; padding: 1rem 3rem; font-size: 1.1rem;" onclick="applyNow()">
+                    立即申请入驻
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2024 婚育服务综合平台 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        function applyNow() {
+            alert('商家入驻申请\n\n请准备以下资料：\n1. 营业执照\n2. 法人身份证\n3. 相关资质证明\n4. 联系方式\n\n提示：实际需要对接商家入驻系统');
+        }
+    </script>
+</body>
+</html>

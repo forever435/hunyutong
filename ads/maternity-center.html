@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高端月子中心 - 婚育服务平台</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 4rem 1rem; text-align: center; color: #333; }
+        .centers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin: 3rem 0; }
+        .center-card { background: white; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .center-image { height: 200px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .center-info { padding: 1.5rem; }
+        .center-name { font-size: 1.3rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .services { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+        .service-tag { background: #fff3e0; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; }
+        .price-info { font-size: 1.5rem; color: #ff6b6b; font-weight: bold; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-heart"></i> 婚育服务平台</h1>
+            <button onclick="window.history.back()" class="btn btn-secondary">返回首页</button>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>💝 高端月子中心</h1>
+        <p>专业护理 · 营养膳食 · 24小时贴心服务</p>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <div class="centers-grid" id="centersGrid"></div>
+        </div>
+    </main>
+
+    <script>
+        const centers = [
+            { id: 1, name: '爱帝宫月子中心', price: '38800', services: ['24h护理', '中医调理', '产后修复', '婴儿SPA'], icon: '🏨', rating: 4.9 },
+            { id: 2, name: '馨月汇月子会所', price: '28800', services: ['营养月子餐', '专业护士', '产后瑜伽', '心理疏导'], icon: '🌸', rating: 4.8 },
+            { id: 3, name: '喜喜月子中心', price: '19800', services: ['套房服务', '母婴护理', '营养配餐', '育儿指导'], icon: '👶', rating: 4.7 }
+        ];
+
+        document.getElementById('centersGrid').innerHTML = centers.map(c => `
+            <div class="center-card">
+                <div class="center-image">${c.icon}</div>
+                <div class="center-info">
+                    <h3 class="center-name">${c.name}</h3>
+                    <div>⭐ ${c.rating}分</div>
+                    <div class="services">${c.services.map(s => `<span class="service-tag">${s}</span>`).join('')}</div>
+                    <div class="price-info">¥${c.price}/月起</div>
+                    <button class="btn btn-primary" onclick="alert('咨询${c.name}')">立即咨询</button>
+                </div>
+            </div>
+        `).join('');
+    </script>
+</body>
+</html>

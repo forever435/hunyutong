@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三甲医院产检套餐 - 婚育服务平台</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 4rem 1rem; text-align: center; }
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; }
+        .package-card { background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .package-name { font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #667eea; }
+        .package-items { list-style: none; margin: 1rem 0; }
+        .package-items li { padding: 0.5rem 0; border-bottom: 1px dashed #eee; }
+        .package-price { font-size: 2rem; color: #ff6b6b; font-weight: bold; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-heart"></i> 婚育服务平台</h1>
+            <button onclick="window.history.back()" class="btn btn-secondary">返回首页</button>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>🏥 三甲医院产检套餐</h1>
+        <p>专家团队 · 全程跟踪 · 安心孕育</p>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <div class="packages-grid" id="packagesGrid"></div>
+        </div>
+    </main>
+
+    <script>
+        const packages = [
+            { name: '基础产检套餐', price: 2980, items: ['NT检查', '唐氏筛查', '四维彩超', '糖耐检查', '常规产检6次'], icon: '📋' },
+            { name: '标准产检套餐', price: 4980, items: ['基础套餐全部', '无创DNA', '胎心监护', '常规产检10次', '专家号优先'], icon: '📝' },
+            { name: 'VIP产检套餐', price: 8980, items: ['标准套餐全部', '一对一专家', '绿色通道', '产后访视', '营养指导'], icon: '👨‍⚕️' }
+        ];
+
+        document.getElementById('packagesGrid').innerHTML = packages.map(p => `
+            <div class="package-card">
+                <div style="font-size: 3rem; text-align: center;">${p.icon}</div>
+                <h3 class="package-name">${p.name}</h3>
+                <ul class="package-items">${p.items.map(i => `<li>✓ ${i}</li>`).join('')}</ul>
+                <div class="package-price">¥${p.price}</div>
+                <button class="btn btn-primary" onclick="alert('预约${p.name}')">立即预约</button>
+            </div>
+        `).join('');
+    </script>
+</body>
+</html>
